@@ -248,8 +248,62 @@ footer{
 </button>
 <button onclick="mostrar('clases')">
 📅 Clases
+<!-- CLASES -->
+<section id="clases" class="section">
+
+<div class="panel">
+<h2>Clases</h2>
+<div id="classesList"></div>
+</div>
+
+<div class="panel">
+<h2>Nueva clase</h2>
+
+<select id="classDay">
+<option value="1">Lunes</option>
+<option value="2">Martes</option>
+<option value="3">Miércoles</option>
+<option value="4">Jueves</option>
+<option value="5">Viernes</option>
+<option value="6">Sábado</option>
+<option value="0">Domingo</option>
+</select>
+
+<label>Hora</label>
+<input
+  id="classTime"
+  type="text"
+  inputmode="numeric"
+  placeholder="18:00"
+  value="18:00"
+  maxlength="5"
+>
+
+<label>Capacidad</label>
+<input
+  id="classCapacity"
+  type="number"
+  inputmode="numeric"
+  value="15"
+  placeholder="15"
+>
+
+<label>Grupo</label>
+<input
+  id="classGroup"
+  type="text"
+  placeholder="General"
+>
+
+<button class="primary" onclick="addClass()">
+CREAR CLASE
 </button>
-<button onclick="mostrar('wod')">
+
+<div id="classMessage" class="small"></div>
+
+</div>
+
+</section>
 🏋️ WOD
 </button>
 </div>
