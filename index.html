@@ -2604,8 +2604,8 @@ async function editClass(id){
     .from("classes")
     .update({
       weekday:weekdayNumber,
-      start_time,
-      capacity,
+      start_time:start_time,
+      capacity:capacity,
       group_name:group_name.trim()
     })
     .eq("id", id)
