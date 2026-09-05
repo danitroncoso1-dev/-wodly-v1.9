@@ -2488,16 +2488,31 @@ function renderClasses(){
               </div>
 
 
-              <button
-                class="small-btn"
-                onclick="
-                  deleteClass(
-                    '${c.id}'
-                  )
-                "
-              >
-                Eliminar
-              </button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+
+  <button
+    class="small-btn"
+    onclick="
+      editClass(
+        '${c.id}'
+      )
+    "
+  >
+    Editar
+  </button>
+
+  <button
+    class="small-btn"
+    onclick="
+      deleteClass(
+        '${c.id}'
+      )
+    "
+  >
+    Eliminar
+  </button>
+
+</div>  
 
             </div>
 
@@ -2509,7 +2524,111 @@ function renderClasses(){
       .join("");
 }
 
+async function editClass(id){
 
+  const clase =
+    classes.find(
+      c => String(c.id) === String(id)
+    );
+
+  if(!clase){
+    alert("No se encontró la clase.");
+    return;
+  }
+
+  const weekday =
+    prompt(
+      "Día (0=Domingo, 1=Lunes, 2=Martes, 3=Miércoles, 4=Jueves, 5=Viernes, 6=Sábado):",
+      clase.weekday
+    );
+
+  if(weekday === null){
+    return;
+  }
+
+  const weekdayNumber = Number(weekday);
+
+  if(
+    !Number.isInteger(weekdayNumber) ||
+    weekdayNumber < 0 ||
+    weekdayNumber > 6
+  ){
+    alert("Día inválido.");
+    return;
+  }
+
+  const start_time =
+    prompt(
+      "Hora (HH:MM):",
+      cleanTime(clase.start_time)
+    );
+
+  if(start_time === null){
+    return;
+  }
+
+  if(!validateTime(start_time)){
+    alert(
+      "La hora debe tener formato HH:MM. Ejemplo: 18:00"
+    );
+    return;
+  }
+
+  const capacity =
+    Number(
+      prompt(
+        "Capacidad:",
+        clase.capacity || 15
+      )
+    );
+
+  if(!Number.isFinite(capacity) || capacity < 1){
+    alert("Capacidad inválida.");
+    return;
+  }
+
+  const group_name =
+    prompt(
+      "Grupo:",
+      clase.group_name || ""
+    );
+
+  if(group_name === null){
+    return;
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("classes")
+    .update({
+      weekday:weekdayNumber,
+      start_time,
+      capacity,
+      group_name:group_name.trim()
+    })
+    .eq("id", id)
+    .eq("box_id", currentBox.id);
+
+  if(error){
+    alert(
+      "No se pudo editar la clase: " +
+      error.message
+    );
+    return;
+  }
+
+  showMessage(
+    "classMessage",
+    "Clase actualizada correctamente.",
+    "ok"
+  );
+
+  await loadClasses();
+
+  updateDashboard();
+}
 async function deleteClass(id){
 
   if(
