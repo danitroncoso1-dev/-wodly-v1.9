@@ -1,191 +1,454 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WODLY</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #111;
-      color: white;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #1b1b1b;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #333;
-    }
-
-    .logo {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: 3px;
-    }
-
-    .subtitle {
-      color: #aaa;
-      margin-top: 5px;
-      font-size: 14px;
-      letter-spacing: 2px;
-    }
-
-    main {
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .welcome {
-      margin: 10px 0 25px;
-    }
-
-    .welcome h1 {
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-
-    .welcome p {
-      color: #aaa;
-    }
-
-    .card {
-      background: #1d1d1d;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-      border: 1px solid #303030;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-    }
-
-    .card h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .wod {
-      border-left: 5px solid #fff;
-    }
-
-    .wod-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .wod p {
-      color: #ccc;
-      line-height: 1.5;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    button {
-      border: none;
-      padding: 16px 10px;
-      border-radius: 12px;
-      background: #292929;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #3a3a3a;
-    }
-
-    .primary {
-      background: white;
-      color: #111;
-    }
-
-    .primary:hover {
-      background: #ddd;
-    }
-
-    footer {
-      text-align: center;
-      color: #666;
-      padding: 25px 10px;
-      font-size: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WODLY v2.0</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{
+  background:#101010;
+  color:#fff;
+  min-height:100vh;
+}
+header{
+  padding:20px;
+  background:#181818;
+  border-bottom:1px solid #303030;
+  text-align:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo{
+  font-size:36px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+.subtitle{
+  color:#888;
+  font-size:12px;
+  margin-top:4px;
+  letter-spacing:2px;
+}
+main{
+  max-width:650px;
+  margin:auto;
+  padding:20px;
+  padding-bottom:100px;
+}
+.screen{display:none}
+.screen.active{display:block}
+h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
+.description{
+  color:#999;
+  margin-bottom:22px;
+}
+.card{
+  background:#1c1c1c;
+  border:1px solid #303030;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
+}
+.card h2{
+  margin-bottom:12px;
+  font-size:19px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.stat{
+  background:#252525;
+  padding:15px 8px;
+  border-radius:12px;
+  text-align:center;
+}
+.stat strong{
+  display:block;
+  font-size:25px;
+}
+.stat span{
+  color:#999;
+  font-size:11px;
+}
+.wod{
+  border-left:5px solid #fff;
+}
+.wod-name{
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.wod p{
+  color:#ccc;
+  line-height:1.7;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+button{
+  border:0;
+  border-radius:12px;
+  padding:15px;
+  background:#292929;
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:active{
+  transform:scale(.98);
+}
+.primary{
+  background:white;
+  color:#111;
+}
+input,select{
+  width:100%;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:10px;
+  border:1px solid #444;
+  background:#252525;
+  color:white;
+  font-size:15px;
+}
+.member{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#252525;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:8px;
+}
+.member small{
+  color:#999;
+}
+.badge{
+  padding:5px 8px;
+  border-radius:8px;
+  background:#333;
+  font-size:11px;
+}
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#181818;
+  border-top:1px solid #333;
+  display:flex;
+  justify-content:space-around;
+  padding:8px 3px;
+  z-index:20;
+}
+.nav-btn{
+  background:none;
+  padding:7px 4px;
+  font-size:11px;
+  color:#999;
+}
+.nav-btn.active{
+  color:white;
+}
+footer{
+  text-align:center;
+  color:#555;
+  font-size:11px;
+  margin-top:25px;
+}
+</style>
 </head>
-
 <body>
-
-  <header>
-    <div class="logo">WODLY</div>
-    <div class="subtitle">CROSSFIT MANAGEMENT</div>
-  </header>
-
-  <main>
-
-    <section class="welcome">
-      <h1>Bienvenido a WODLY</h1>
-      <p>La gestión de tu box, en un solo lugar.</p>
-    </section>
-
-    <section class="card wod">
-      <h2>🔥 WOD DEL DÍA</h2>
-
-      <div class="wod-title">AMRAP 15'</div>
-
-      <p>
-        10 Burpees<br>
-        15 Kettlebell Swings<br>
-        20 Air Squats
-      </p>
-    </section>
-
-    <section class="card">
-      <h2>📊 Resumen del Box</h2>
-
-      <p style="color:#aaa; line-height:1.8;">
-        👥 Socios activos: <strong style="color:white;">0</strong><br>
-        📅 Clases de hoy: <strong style="color:white;">0</strong><br>
-        💳 Cuotas pendientes: <strong style="color:white;">0</strong>
-      </p>
-    </section>
-
-    <div class="buttons">
-      <button class="primary" onclick="alert('Próximamente: gestión de socios')">
-        👥 SOCIOS
-      </button>
-
-      <button onclick="alert('Próximamente: gestión de clases')">
-        📅 CLASES
-      </button>
-
-      <button onclick="alert('Próximamente: gestión de pagos')">
-        💳 PAGOS
-      </button>
-
-      <button onclick="alert('Próximamente: estadísticas')">
-        📊 ESTADÍSTICAS
-      </button>
-    </div>
-
-  </main>
-
-  <footer>
-    WODLY © 2026 · CrossFit Management
-  </footer>
-
+<header>
+  <div class="logo">WODLY</div>
+  <div class="subtitle">CROSSFIT MANAGEMENT</div>
+</header>
+<main>
+<!-- INICIO -->
+<section id="inicio" class="screen active">
+<h1>Dashboard</h1>
+<p class="description">Resumen de tu box</p>
+<div class="stats">
+  <div class="stat">
+    <strong id="totalSocios">0</strong>
+    <span>SOCIOS</span>
+  </div>
+  <div class="stat">
+    <strong>4</strong>
+    <span>CLASES HOY</span>
+  </div>
+  <div class="stat">
+    <strong id="pagosPendientes">0</strong>
+    <span>PENDIENTES</span>
+  </div>
+</div>
+<br>
+<div class="card wod">
+  <h2>🔥 WOD DEL DÍA</h2>
+  <div class="wod-name">AMRAP 15'</div>
+  <p>
+    10 Burpees<br>
+    15 Kettlebell Swings<br>
+    20 Air Squats
+  </p>
+</div>
+<div class="card">
+  <h2>Accesos rápidos</h2>
+  <div class="grid">
+    <button onclick="mostrar('socios')">👥 Socios</button>
+    <button onclick="mostrar('pagos')">💳 Pagos</button>
+    <button onclick="mostrar('clases')">📅 Clases</button>
+    <button onclick="mostrar('wod')">🏋️ WOD</button>
+  </div>
+</div>
+</section>
+<!-- SOCIOS -->
+<section id="socios" class="screen">
+<h1>Socios</h1>
+<p class="description">Administración de miembros</p>
+<div class="card">
+<h2>➕ Agregar socio</h2>
+<input id="nombreSocio" placeholder="Nombre y apellido">
+<input id="telefonoSocio" placeholder="Teléfono">
+<select id="estadoSocio">
+<option value="Activo">Activo</option>
+<option value="Inactivo">Inactivo</option>
+</select>
+<button class="primary" onclick="agregarSocio()">Guardar socio</button>
+</div>
+<div class="card">
+<h2>Lista de socios</h2>
+<div id="listaSocios">
+<p style="color:#777">Todavía no hay socios cargados.</p>
+</div>
+</div>
+</section>
+<!-- PAGOS -->
+<section id="pagos" class="screen">
+<h1>Pagos</h1>
+<p class="description">Control de cuotas</p>
+<div class="card">
+<h2>💳 Registrar pago</h2>
+<input id="pagoNombre" placeholder="Nombre del socio">
+<input id="pagoMonto" type="number" placeholder="Monto">
+<select id="pagoEstado">
+<option>Pagado</option>
+<option>Pendiente</option>
+</select>
+<button class="primary" onclick="registrarPago()">Registrar</button>
+</div>
+<div class="card">
+<h2>Movimientos</h2>
+<div id="listaPagos">
+<p style="color:#777">No hay movimientos.</p>
+</div>
+</div>
+</section>
+<!-- CLASES -->
+<section id="clases" class="screen">
+<h1>Clases</h1>
+<p class="description">Agenda del box</p>
+<div class="card">
+<h2>📅 Horarios de hoy</h2>
+<div class="member">
+<div>
+<strong>08:00</strong><br>
+<small>CrossFit</small>
+</div>
+<span class="badge">0 / 15</span>
+</div>
+<div class="member">
+<div>
+<strong>12:00</strong><br>
+<small>CrossFit</small>
+</div>
+<span class="badge">0 / 15</span>
+</div>
+<div class="member">
+<div>
+<strong>18:00</strong><br>
+<small>CrossFit</small>
+</div>
+<span class="badge">0 / 15</span>
+</div>
+<div class="member">
+<div>
+<strong>20:00</strong><br>
+<small>CrossFit</small>
+</div>
+<span class="badge">0 / 15</span>
+</div>
+</div>
+</section>
+<!-- WOD -->
+<section id="wod" class="screen">
+<h1>WOD</h1>
+<p class="description">Entrenamiento del día</p>
+<div class="card">
+<h2>🔥 AMRAP 15'</h2>
+<p style="color:#ccc;line-height:1.8">
+10 Burpees<br>
+15 Kettlebell Swings<br>
+20 Air Squats
+</p>
+<br>
+<button class="primary" onclick="alert('Próximamente podrás editar el WOD')">
+✏️ Editar WOD
+</button>
+</div>
+</section>
+<!-- ESTADISTICAS -->
+<section id="estadisticas" class="screen">
+<h1>Estadísticas</h1>
+<p class="description">Información del box</p>
+<div class="card">
+<h2>📊 Resumen</h2>
+<div class="stat">
+<strong id="estadisticaSocios">0</strong>
+<span>SOCIOS REGISTRADOS</span>
+</div>
+<br>
+<p style="color:#999">
+Más estadísticas estarán disponibles cuando conectemos la base de datos.
+</p>
+</div>
+</section>
+<!-- CONFIGURACION -->
+<section id="configuracion" class="screen">
+<h1>Configuración</h1>
+<p class="description">Configuración del box</p>
+<div class="card">
+<h2>⚙️ Datos del Box</h2>
+<input placeholder="Nombre del Box">
+<input placeholder="Dirección">
+<input placeholder="Teléfono">
+<button class="primary" onclick="alert('Configuración guardada')">
+Guardar configuración
+</button>
+</div>
+</section>
+<footer>
+WODLY © 2026 · CrossFit Management
+</footer>
+</main>
+<!-- NAVEGACION -->
+<nav class="bottom-nav">
+<button class="nav-btn active" onclick="mostrar('inicio')">🏠<br>Inicio</button>
+<button class="nav-btn" onclick="mostrar('socios')">👥<br>Socios</button>
+<button class="nav-btn" onclick="mostrar('clases')">📅<br>Clases</button>
+<button class="nav-btn" onclick="mostrar('pagos')">💳<br>Pagos</button>
+<button class="nav-btn" onclick="mostrar('estadisticas')">📊<br>Stats</button>
+</nav>
+<script>
+let socios = JSON.parse(localStorage.getItem("wodly_socios")) || [];
+let pagos = JSON.parse(localStorage.getItem("wodly_pagos")) || [];
+function mostrar(id){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.remove("active");
+  });
+  window.scrollTo(0,0);
+  actualizar();
+}
+function agregarSocio(){
+  const nombre = document.getElementById("nombreSocio").value.trim();
+  const telefono = document.getElementById("telefonoSocio").value.trim();
+  const estado = document.getElementById("estadoSocio").value;
+  if(!nombre){
+    alert("Ingresá el nombre del socio");
+    return;
+  }
+  socios.push({
+    nombre:nombre,
+    telefono:telefono,
+    estado:estado
+  });
+  localStorage.setItem("wodly_socios",JSON.stringify(socios));
+  document.getElementById("nombreSocio").value="";
+  document.getElementById("telefonoSocio").value="";
+  actualizar();
+  alert("Socio agregado correctamente");
+}
+function eliminarSocio(index){
+  if(confirm("¿Eliminar este socio?")){
+    socios.splice(index,1);
+    localStorage.setItem("wodly_socios",JSON.stringify(socios));
+    actualizar();
+  }
+}
+function registrarPago(){
+  const nombre=document.getElementById("pagoNombre").value.trim();
+  const monto=document.getElementById("pagoMonto").value;
+  const estado=document.getElementById("pagoEstado").value;
+  if(!nombre || !monto){
+    alert("Completá los datos");
+    return;
+  }
+  pagos.push({
+    nombre:nombre,
+    monto:monto,
+    estado:estado
+  });
+  localStorage.setItem("wodly_pagos",JSON.stringify(pagos));
+  document.getElementById("pagoNombre").value="";
+  document.getElementById("pagoMonto").value="";
+  actualizar();
+  alert("Pago registrado");
+}
+function actualizar(){
+  document.getElementById("totalSocios").textContent=socios.length;
+  document.getElementById("estadisticaSocios").textContent=socios.length;
+  document.getElementById("pagosPendientes").textContent=
+    pagos.filter(p=>p.estado==="Pendiente").length;
+  const lista=document.getElementById("listaSocios");
+  if(socios.length===0){
+    lista.innerHTML='<p style="color:#777">Todavía no hay socios cargados.</p>';
+  }else{
+    lista.innerHTML="";
+    socios.forEach((s,i)=>{
+      lista.innerHTML += `
+      <div class="member">
+        <div>
+          <strong>${s.nombre}</strong><br>
+          <small>${s.telefono || "Sin teléfono"} · ${s.estado}</small>
+        </div>
+        <button onclick="eliminarSocio(${i})">🗑️</button>
+      </div>
+      `;
+    });
+  }
+  const listaPagos=document.getElementById("listaPagos");
+  if(pagos.length===0){
+    listaPagos.innerHTML='<p style="color:#777">No hay movimientos.</p>';
+  }else{
+    listaPagos.innerHTML="";
+    pagos.forEach(p=>{
+      listaPagos.innerHTML += `
+      <div class="member">
+        <div>
+          <strong>${p.nombre}</strong><br>
+          <small>$${p.monto}</small>
+        </div>
+        <span class="badge">${p.estado}</span>
+      </div>
+      `;
+    });
+  }
+}
+actualizar();
+</script>
 </body>
 </html>
