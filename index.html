@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WODLY v2.0</title>
+<title>WODLY v3</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{
@@ -12,7 +12,7 @@ body{
   min-height:100vh;
 }
 header{
-  padding:20px;
+  padding:18px;
   background:#181818;
   border-bottom:1px solid #303030;
   text-align:center;
@@ -21,13 +21,13 @@ header{
   z-index:10;
 }
 .logo{
-  font-size:36px;
+  font-size:34px;
   font-weight:900;
   letter-spacing:4px;
 }
 .subtitle{
   color:#888;
-  font-size:12px;
+  font-size:11px;
   margin-top:4px;
   letter-spacing:2px;
 }
@@ -41,11 +41,11 @@ main{
 .screen.active{display:block}
 h1{
   font-size:28px;
-  margin-bottom:8px;
+  margin-bottom:7px;
 }
 .description{
   color:#999;
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 .card{
   background:#1c1c1c;
@@ -55,35 +55,35 @@ h1{
   margin-bottom:15px;
 }
 .card h2{
-  margin-bottom:12px;
   font-size:19px;
+  margin-bottom:14px;
 }
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:9px;
 }
 .stat{
   background:#252525;
-  padding:15px 8px;
+  padding:14px 5px;
   border-radius:12px;
   text-align:center;
 }
 .stat strong{
   display:block;
-  font-size:25px;
+  font-size:24px;
 }
 .stat span{
   color:#999;
-  font-size:11px;
+  font-size:10px;
 }
 .wod{
   border-left:5px solid #fff;
 }
 .wod-name{
-  font-size:24px;
+  font-size:23px;
   font-weight:bold;
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 .wod p{
   color:#ccc;
@@ -92,12 +92,12 @@ h1{
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px;
 }
 button{
   border:0;
-  border-radius:12px;
-  padding:15px;
+  border-radius:11px;
+  padding:14px;
   background:#292929;
   color:white;
   font-size:14px;
@@ -121,23 +121,53 @@ input,select{
   color:white;
   font-size:15px;
 }
+.search{
+  margin-bottom:15px;
+}
 .member{
+  background:#252525;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:9px;
+}
+.member-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:#252525;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:8px;
+  gap:10px;
 }
-.member small{
+.member-name{
+  font-weight:bold;
+  font-size:16px;
+}
+.member-info{
   color:#999;
+  font-size:12px;
+  margin-top:6px;
+  line-height:1.6;
+}
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+}
+.actions button{
+  flex:1;
+  padding:10px;
+  font-size:12px;
 }
 .badge{
   padding:5px 8px;
   border-radius:8px;
   background:#333;
-  font-size:11px;
+  font-size:10px;
+  white-space:nowrap;
+}
+.active-badge{
+  background:#234d2c;
+}
+.inactive-badge{
+  background:#4b2929;
 }
 .bottom-nav{
   position:fixed;
@@ -148,17 +178,22 @@ input,select{
   border-top:1px solid #333;
   display:flex;
   justify-content:space-around;
-  padding:8px 3px;
+  padding:7px 3px;
   z-index:20;
 }
 .nav-btn{
   background:none;
-  padding:7px 4px;
-  font-size:11px;
-  color:#999;
+  padding:6px 4px;
+  font-size:10px;
+  color:#888;
 }
 .nav-btn.active{
   color:white;
+}
+.empty{
+  color:#777;
+  text-align:center;
+  padding:15px 5px;
 }
 footer{
   text-align:center;
@@ -170,8 +205,8 @@ footer{
 </head>
 <body>
 <header>
-  <div class="logo">WODLY</div>
-  <div class="subtitle">CROSSFIT MANAGEMENT</div>
+<div class="logo">WODLY</div>
+<div class="subtitle">CROSSFIT MANAGEMENT</div>
 </header>
 <main>
 <!-- INICIO -->
@@ -179,122 +214,157 @@ footer{
 <h1>Dashboard</h1>
 <p class="description">Resumen de tu box</p>
 <div class="stats">
-  <div class="stat">
-    <strong id="totalSocios">0</strong>
-    <span>SOCIOS</span>
-  </div>
-  <div class="stat">
-    <strong>4</strong>
-    <span>CLASES HOY</span>
-  </div>
-  <div class="stat">
-    <strong id="pagosPendientes">0</strong>
-    <span>PENDIENTES</span>
-  </div>
+<div class="stat">
+<strong id="totalSocios">0</strong>
+<span>SOCIOS</span>
+</div>
+<div class="stat">
+<strong>4</strong>
+<span>CLASES HOY</span>
+</div>
+<div class="stat">
+<strong id="pagosPendientes">0</strong>
+<span>PENDIENTES</span>
+</div>
 </div>
 <br>
 <div class="card wod">
-  <h2>🔥 WOD DEL DÍA</h2>
-  <div class="wod-name">AMRAP 15'</div>
-  <p>
-    10 Burpees<br>
-    15 Kettlebell Swings<br>
-    20 Air Squats
-  </p>
+<h2>🔥 WOD DEL DÍA</h2>
+<div class="wod-name">AMRAP 15'</div>
+<p>
+10 Burpees<br>
+15 Kettlebell Swings<br>
+20 Air Squats
+</p>
 </div>
 <div class="card">
-  <h2>Accesos rápidos</h2>
-  <div class="grid">
-    <button onclick="mostrar('socios')">👥 Socios</button>
-    <button onclick="mostrar('pagos')">💳 Pagos</button>
-    <button onclick="mostrar('clases')">📅 Clases</button>
-    <button onclick="mostrar('wod')">🏋️ WOD</button>
-  </div>
+<h2>Accesos rápidos</h2>
+<div class="grid">
+<button onclick="mostrar('socios')">
+👥 Socios
+</button>
+<button onclick="mostrar('pagos')">
+💳 Pagos
+</button>
+<button onclick="mostrar('clases')">
+📅 Clases
+</button>
+<button onclick="mostrar('wod')">
+🏋️ WOD
+</button>
+</div>
 </div>
 </section>
 <!-- SOCIOS -->
 <section id="socios" class="screen">
 <h1>Socios</h1>
-<p class="description">Administración de miembros</p>
+<p class="description">
+Administración de miembros
+</p>
 <div class="card">
-<h2>➕ Agregar socio</h2>
-<input id="nombreSocio" placeholder="Nombre y apellido">
-<input id="telefonoSocio" placeholder="Teléfono">
+<h2>➕ Nuevo socio</h2>
+<input id="nombreSocio"
+placeholder="Nombre y apellido">
+<input id="telefonoSocio"
+placeholder="Teléfono">
 <select id="estadoSocio">
-<option value="Activo">Activo</option>
-<option value="Inactivo">Inactivo</option>
+<option value="Activo">
+Activo
+</option>
+<option value="Inactivo">
+Inactivo
+</option>
 </select>
-<button class="primary" onclick="agregarSocio()">Guardar socio</button>
+<button class="primary"
+onclick="agregarSocio()">
+Guardar socio
+</button>
 </div>
 <div class="card">
-<h2>Lista de socios</h2>
-<div id="listaSocios">
-<p style="color:#777">Todavía no hay socios cargados.</p>
-</div>
+<h2>👥 Mis socios</h2>
+<input
+class="search"
+id="buscarSocio"
+placeholder="🔎 Buscar socio..."
+oninput="mostrarSocios()">
+<div id="listaSocios"></div>
 </div>
 </section>
 <!-- PAGOS -->
 <section id="pagos" class="screen">
 <h1>Pagos</h1>
-<p class="description">Control de cuotas</p>
+<p class="description">
+Control de cuotas
+</p>
 <div class="card">
 <h2>💳 Registrar pago</h2>
-<input id="pagoNombre" placeholder="Nombre del socio">
-<input id="pagoMonto" type="number" placeholder="Monto">
+<input
+id="pagoNombre"
+placeholder="Nombre del socio">
+<input
+id="pagoMonto"
+type="number"
+placeholder="Monto">
 <select id="pagoEstado">
 <option>Pagado</option>
 <option>Pendiente</option>
 </select>
-<button class="primary" onclick="registrarPago()">Registrar</button>
+<button
+class="primary"
+onclick="registrarPago()">
+Registrar pago
+</button>
 </div>
 <div class="card">
 <h2>Movimientos</h2>
-<div id="listaPagos">
-<p style="color:#777">No hay movimientos.</p>
-</div>
+<div id="listaPagos"></div>
 </div>
 </section>
 <!-- CLASES -->
 <section id="clases" class="screen">
 <h1>Clases</h1>
-<p class="description">Agenda del box</p>
+<p class="description">
+Agenda del box
+</p>
 <div class="card">
 <h2>📅 Horarios de hoy</h2>
 <div class="member">
-<div>
-<strong>08:00</strong><br>
-<small>CrossFit</small>
-</div>
+<div class="member-top">
+<strong>08:00</strong>
 <span class="badge">0 / 15</span>
+</div>
+<div class="member-info">CrossFit</div>
 </div>
 <div class="member">
-<div>
-<strong>12:00</strong><br>
-<small>CrossFit</small>
-</div>
+<div class="member-top">
+<strong>12:00</strong>
 <span class="badge">0 / 15</span>
+</div>
+<div class="member-info">CrossFit</div>
 </div>
 <div class="member">
-<div>
-<strong>18:00</strong><br>
-<small>CrossFit</small>
-</div>
+<div class="member-top">
+<strong>18:00</strong>
 <span class="badge">0 / 15</span>
+</div>
+<div class="member-info">CrossFit</div>
 </div>
 <div class="member">
-<div>
-<strong>20:00</strong><br>
-<small>CrossFit</small>
-</div>
+<div class="member-top">
+<strong>20:00</strong>
 <span class="badge">0 / 15</span>
+</div>
+<div class="member-info">CrossFit</div>
 </div>
 </div>
 </section>
 <!-- WOD -->
 <section id="wod" class="screen">
 <h1>WOD</h1>
-<p class="description">Entrenamiento del día</p>
-<div class="card">
+<p class="description">
+Entrenamiento del día
+</p>
+<div class="card wod">
 <h2>🔥 AMRAP 15'</h2>
 <p style="color:#ccc;line-height:1.8">
 10 Burpees<br>
@@ -302,7 +372,9 @@ footer{
 20 Air Squats
 </p>
 <br>
-<button class="primary" onclick="alert('Próximamente podrás editar el WOD')">
+<button
+class="primary"
+onclick="editarWod()">
 ✏️ Editar WOD
 </button>
 </div>
@@ -310,30 +382,42 @@ footer{
 <!-- ESTADISTICAS -->
 <section id="estadisticas" class="screen">
 <h1>Estadísticas</h1>
-<p class="description">Información del box</p>
+<p class="description">
+Información del box
+</p>
 <div class="card">
 <h2>📊 Resumen</h2>
+<div class="stats">
 <div class="stat">
 <strong id="estadisticaSocios">0</strong>
-<span>SOCIOS REGISTRADOS</span>
+<span>SOCIOS</span>
 </div>
-<br>
-<p style="color:#999">
-Más estadísticas estarán disponibles cuando conectemos la base de datos.
-</p>
+<div class="stat">
+<strong id="estadisticaActivos">0</strong>
+<span>ACTIVOS</span>
+</div>
+<div class="stat">
+<strong id="estadisticaInactivos">0</strong>
+<span>INACTIVOS</span>
+</div>
+</div>
 </div>
 </section>
 <!-- CONFIGURACION -->
 <section id="configuracion" class="screen">
 <h1>Configuración</h1>
-<p class="description">Configuración del box</p>
+<p class="description">
+Datos del box
+</p>
 <div class="card">
-<h2>⚙️ Datos del Box</h2>
+<h2>⚙️ Información</h2>
 <input placeholder="Nombre del Box">
 <input placeholder="Dirección">
 <input placeholder="Teléfono">
-<button class="primary" onclick="alert('Configuración guardada')">
-Guardar configuración
+<button
+class="primary"
+onclick="alert('Configuración guardada')">
+Guardar
 </button>
 </div>
 </section>
@@ -341,112 +425,251 @@ Guardar configuración
 WODLY © 2026 · CrossFit Management
 </footer>
 </main>
-<!-- NAVEGACION -->
+<!-- MENU -->
 <nav class="bottom-nav">
-<button class="nav-btn active" onclick="mostrar('inicio')">🏠<br>Inicio</button>
-<button class="nav-btn" onclick="mostrar('socios')">👥<br>Socios</button>
-<button class="nav-btn" onclick="mostrar('clases')">📅<br>Clases</button>
-<button class="nav-btn" onclick="mostrar('pagos')">💳<br>Pagos</button>
-<button class="nav-btn" onclick="mostrar('estadisticas')">📊<br>Stats</button>
+<button class="nav-btn active"
+onclick="mostrar('inicio')">
+🏠<br>Inicio
+</button>
+<button class="nav-btn"
+onclick="mostrar('socios')">
+👥<br>Socios
+</button>
+<button class="nav-btn"
+onclick="mostrar('clases')">
+📅<br>Clases
+</button>
+<button class="nav-btn"
+onclick="mostrar('pagos')">
+💳<br>Pagos
+</button>
+<button class="nav-btn"
+onclick="mostrar('estadisticas')">
+📊<br>Stats
+</button>
 </nav>
 <script>
-let socios = JSON.parse(localStorage.getItem("wodly_socios")) || [];
-let pagos = JSON.parse(localStorage.getItem("wodly_pagos")) || [];
+let socios =
+JSON.parse(localStorage.getItem("wodly_socios")) || [];
+let pagos =
+JSON.parse(localStorage.getItem("wodly_pagos")) || [];
 function mostrar(id){
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
-  });
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".nav-btn").forEach(b=>{
-    b.classList.remove("active");
-  });
-  window.scrollTo(0,0);
-  actualizar();
+document
+.querySelectorAll(".screen")
+.forEach(s=>{
+s.classList.remove("active");
+});
+document
+.getElementById(id)
+.classList.add("active");
+window.scrollTo(0,0);
+actualizar();
 }
 function agregarSocio(){
-  const nombre = document.getElementById("nombreSocio").value.trim();
-  const telefono = document.getElementById("telefonoSocio").value.trim();
-  const estado = document.getElementById("estadoSocio").value;
-  if(!nombre){
-    alert("Ingresá el nombre del socio");
-    return;
-  }
-  socios.push({
-    nombre:nombre,
-    telefono:telefono,
-    estado:estado
-  });
-  localStorage.setItem("wodly_socios",JSON.stringify(socios));
-  document.getElementById("nombreSocio").value="";
-  document.getElementById("telefonoSocio").value="";
-  actualizar();
-  alert("Socio agregado correctamente");
+const nombre =
+document
+.getElementById("nombreSocio")
+.value.trim();
+const telefono =
+document
+.getElementById("telefonoSocio")
+.value.trim();
+const estado =
+document
+.getElementById("estadoSocio")
+.value;
+if(!nombre){
+alert("Ingresá el nombre del socio");
+return;
 }
-function eliminarSocio(index){
-  if(confirm("¿Eliminar este socio?")){
-    socios.splice(index,1);
-    localStorage.setItem("wodly_socios",JSON.stringify(socios));
-    actualizar();
-  }
+const fecha =
+new Date().toLocaleDateString("es-AR");
+socios.push({
+id:Date.now(),
+nombre:nombre,
+telefono:telefono,
+estado:estado,
+fecha:fecha
+});
+localStorage.setItem(
+"wodly_socios",
+JSON.stringify(socios)
+);
+document
+.getElementById("nombreSocio")
+.value="";
+document
+.getElementById("telefonoSocio")
+.value="";
+actualizar();
+alert("✅ Socio agregado correctamente");
+}
+function eliminarSocio(id){
+if(!confirm("¿Querés eliminar este socio?")){
+return;
+}
+socios =
+socios.filter(s=>s.id!==id);
+localStorage.setItem(
+"wodly_socios",
+JSON.stringify(socios)
+);
+actualizar();
+}
+function cambiarEstado(id){
+const socio =
+socios.find(s=>s.id===id);
+if(!socio)return;
+socio.estado =
+socio.estado==="Activo"
+? "Inactivo"
+: "Activo";
+localStorage.setItem(
+"wodly_socios",
+JSON.stringify(socios)
+);
+actualizar();
+}
+function mostrarSocios(){
+const lista =
+document.getElementById("listaSocios");
+const busqueda =
+(document.getElementById("buscarSocio")?.value || "")
+.toLowerCase();
+const filtrados =
+socios.filter(s=>
+s.nombre.toLowerCase().includes(busqueda)
+);
+if(filtrados.length===0){
+lista.innerHTML =
+'<div class="empty">No hay socios para mostrar.</div>';
+return;
+}
+lista.innerHTML="";
+filtrados.forEach(s=>{
+const clase =
+s.estado==="Activo"
+? "active-badge"
+: "inactive-badge";
+lista.innerHTML += `
+<div class="member">
+<div class="member-top">
+<div class="member-name">
+${s.nombre}
+</div>
+<span class="badge ${clase}">
+${s.estado}
+</span>
+</div>
+<div class="member-info">
+📱 ${s.telefono || "Sin teléfono"}<br>
+📅 Alta: ${s.fecha}
+</div>
+<div class="actions">
+<button
+onclick="cambiarEstado(${s.id})">
+${s.estado==="Activo"
+? "🔴 Desactivar"
+: "🟢 Activar"}
+</button>
+<button
+onclick="eliminarSocio(${s.id})">
+🗑️ Eliminar
+</button>
+</div>
+</div>
+`;
+});
 }
 function registrarPago(){
-  const nombre=document.getElementById("pagoNombre").value.trim();
-  const monto=document.getElementById("pagoMonto").value;
-  const estado=document.getElementById("pagoEstado").value;
-  if(!nombre || !monto){
-    alert("Completá los datos");
-    return;
-  }
-  pagos.push({
-    nombre:nombre,
-    monto:monto,
-    estado:estado
-  });
-  localStorage.setItem("wodly_pagos",JSON.stringify(pagos));
-  document.getElementById("pagoNombre").value="";
-  document.getElementById("pagoMonto").value="";
-  actualizar();
-  alert("Pago registrado");
+const nombre =
+document
+.getElementById("pagoNombre")
+.value.trim();
+const monto =
+document
+.getElementById("pagoMonto")
+.value;
+const estado =
+document
+.getElementById("pagoEstado")
+.value;
+if(!nombre || !monto){
+alert("Completá los datos");
+return;
+}
+pagos.push({
+id:Date.now(),
+nombre:nombre,
+monto:monto,
+estado:estado,
+fecha:new Date().toLocaleDateString("es-AR")
+});
+localStorage.setItem(
+"wodly_pagos",
+JSON.stringify(pagos)
+);
+document
+.getElementById("pagoNombre")
+.value="";
+document
+.getElementById("pagoMonto")
+.value="";
+actualizar();
+alert("✅ Movimiento registrado");
+}
+function mostrarPagos(){
+const lista =
+document.getElementById("listaPagos");
+if(pagos.length===0){
+lista.innerHTML =
+'<div class="empty">No hay movimientos.</div>';
+return;
+}
+lista.innerHTML="";
+pagos.slice().reverse().forEach(p=>{
+lista.innerHTML += `
+<div class="member">
+<div class="member-top">
+<strong>${p.nombre}</strong>
+<span class="badge">
+${p.estado}
+</span>
+</div>
+<div class="member-info">
+💰 $${p.monto}<br>
+📅 ${p.fecha}
+</div>
+</div>
+`;
+});
+}
+function editarWod(){
+alert(
+"Próximamente podremos crear y editar WODs desde WODLY."
+);
 }
 function actualizar(){
-  document.getElementById("totalSocios").textContent=socios.length;
-  document.getElementById("estadisticaSocios").textContent=socios.length;
-  document.getElementById("pagosPendientes").textContent=
-    pagos.filter(p=>p.estado==="Pendiente").length;
-  const lista=document.getElementById("listaSocios");
-  if(socios.length===0){
-    lista.innerHTML='<p style="color:#777">Todavía no hay socios cargados.</p>';
-  }else{
-    lista.innerHTML="";
-    socios.forEach((s,i)=>{
-      lista.innerHTML += `
-      <div class="member">
-        <div>
-          <strong>${s.nombre}</strong><br>
-          <small>${s.telefono || "Sin teléfono"} · ${s.estado}</small>
-        </div>
-        <button onclick="eliminarSocio(${i})">🗑️</button>
-      </div>
-      `;
-    });
-  }
-  const listaPagos=document.getElementById("listaPagos");
-  if(pagos.length===0){
-    listaPagos.innerHTML='<p style="color:#777">No hay movimientos.</p>';
-  }else{
-    listaPagos.innerHTML="";
-    pagos.forEach(p=>{
-      listaPagos.innerHTML += `
-      <div class="member">
-        <div>
-          <strong>${p.nombre}</strong><br>
-          <small>$${p.monto}</small>
-        </div>
-        <span class="badge">${p.estado}</span>
-      </div>
-      `;
-    });
-  }
+document
+.getElementById("totalSocios")
+.textContent=socios.length;
+document
+.getElementById("estadisticaSocios")
+.textContent=socios.length;
+document
+.getElementById("estadisticaActivos")
+.textContent=
+socios.filter(s=>s.estado==="Activo").length;
+document
+.getElementById("estadisticaInactivos")
+.textContent=
+socios.filter(s=>s.estado==="Inactivo").length;
+document
+.getElementById("pagosPendientes")
+.textContent=
+pagos.filter(p=>p.estado==="Pendiente").length;
+mostrarSocios();
+mostrarPagos();
 }
 actualizar();
 </script>
