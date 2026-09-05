@@ -673,5 +673,18 @@ mostrarPagos();
 }
 actualizar();
 </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://euujfhmvywhfjeguwtfp.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_056Oipb341JdaNsugdyWPw_49m2RUYy";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("WODLY conectado a Supabase");
+</script>
 </body>
 </html>
