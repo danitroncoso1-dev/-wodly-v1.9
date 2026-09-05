@@ -3126,7 +3126,1079 @@ supabaseClient.auth.onAuthStateChange(
   }
 
 })();
+/* ================= ASISTENCIA WODLY ================= */
+(function () {
 
+  let attendanceMembers = [];
+  let attendanceState = {};
+
+  function escAttendance(value) {
+    if (typeof escapeHtml === "function") {
+      return escapeHtml(value ?? "");
+    }
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function todayAttendance() {
+    const d = new Date();
+
+    return (
+      d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(d.getDate()).padStart(2, "0")
+    );
+  }
+
+  function ensureAttendanceUI() {
+
+    /* ---------- BOTÓN ASISTENCIA ---------- */
+
+    const nav =
+      document.querySelector("nav") ||
+      document.querySelector(".nav") ||
+      document.querySelector("#nav");
+
+    if (nav && !document.getElementById("attendanceNavBtn")) {
+
+      const btn = document.createElement("button");
+
+      btn.id = "attendanceNavBtn";
+      btn.className = "nav-btn";
+      btn.textContent = "Asistencia";
+
+      btn.onclick = function () {
+
+        if (typeof showSection === "function") {
+          showSection("attendance", btn);
+        }
+
+        loadAttendance();
+      };
+
+      nav.appendChild(btn);
+    }
+
+    /* ---------- SECCIÓN ---------- */
+
+    if (document.getElementById("attendance")) {
+      return;
+    }
+
+    const main =
+      document.querySelector("main") ||
+      document.querySelector(".main") ||
+      document.body;
+
+    const section = document.createElement("section");
+
+    section.id = "attendance";
+    section.className = "section hidden";
+
+    section.innerHTML = `
+
+      <div class="card">
+
+        <h2>📋 Asistencia</h2>
+
+        <p style="opacity:.7;margin-top:-8px;">
+          Control de asistencia de los socios
+        </p>
+
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+          gap:12px;
+          margin-top:20px;
+        ">
+
+          <div>
+            <label>Fecha</label>
+
+            <input
+              type="date"
+              id="attendanceDate"
+              style="width:100%;"
+            >
+
+          </div>
+
+          <div>
+
+            <label>Clase</label>
+
+            <select
+              id="attendanceClass"
+              style="width:100%;"
+            >
+              <option value="">
+                Seleccionar clase...
+              </option>
+            </select>
+
+          </div>
+
+        </div>
+
+        <div style="
+          display:flex;
+          gap:8px;
+          flex-wrap:wrap;
+          margin-top:18px;
+        ">
+
+          <button
+            type="button"
+            onclick="markAllAttendance('present')"
+          >
+            ✅ Todos presentes
+          </button>
+
+          <button
+            type="button"
+            onclick="markAllAttendance('absent')"
+          >
+            ❌ Todos ausentes
+          </button>
+
+        </div>
+
+        <div
+          id="attendanceMessage"
+          style="margin-top:15px;"
+        ></div>
+
+        <div
+          id="attendanceList"
+          style="margin-top:20px;"
+        >
+          Seleccioná una clase.
+        </div>
+
+        <button
+          id="saveAttendanceBtn"
+          type="button"
+          onclick="saveAttendance()"
+          style="
+            margin-top:20px;
+            width:100%;
+            padding:14px;
+            font-weight:bold;
+          "
+        >
+          💾 Guardar asistencia
+        </button>
+
+      </div>
+
+    `;
+
+    main.appendChild(section);
+
+    /* ---------- FECHA ---------- */
+
+    const dateInput =
+      document.getElementById("attendanceDate");
+
+    if (dateInput && !dateInput.value) {
+      dateInput.value = todayAttendance();
+    }
+
+    if (
+      dateInput &&
+      !dateInput.dataset.bound
+    ) {
+
+      dateInput.dataset.bound = "1";
+
+      dateInput.addEventListener(
+        "change",
+        function () {
+          populateAttendanceClasses();
+          loadAttendanceMembers();
+        }
+      );
+    }
+
+    /* ---------- CLASE ---------- */
+
+    const classSelect =
+      document.getElementById("attendanceClass");
+
+    if (
+      classSelect &&
+      !classSelect.dataset.bound
+    ) {
+
+      classSelect.dataset.bound = "1";
+
+      classSelect.addEventListener(
+        "change",
+        function () {
+          loadAttendanceMembers();
+        }
+      );
+    }
+  }
+
+  /* ---------- CLASES ---------- */
+
+  function populateAttendanceClasses() {
+
+    const select =
+      document.getElementById(
+        "attendanceClass"
+      );
+
+    if (!select) return;
+
+    const dateInput =
+      document.getElementById(
+        "attendanceDate"
+      );
+
+    const date =
+      dateInput && dateInput.value
+        ? dateInput.value
+        : todayAttendance();
+
+    const jsDay =
+      new Date(
+        date + "T12:00:00"
+      ).getDay();
+
+    const list =
+      Array.isArray(classes)
+        ? [...classes]
+        : [];
+
+    list.sort(function (a, b) {
+
+      const aToday =
+        Number(a.weekday) === jsDay ? 0 : 1;
+
+      const bToday =
+        Number(b.weekday) === jsDay ? 0 : 1;
+
+      if (aToday !== bToday) {
+        return aToday - bToday;
+      }
+
+      return String(
+        a.start_time || ""
+      ).localeCompare(
+        String(b.start_time || "")
+      );
+    });
+
+    const dayNames = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado"
+    ];
+
+    select.innerHTML =
+      `<option value="">
+        Seleccionar clase...
+      </option>` +
+
+      list.map(function (clase) {
+
+        const time =
+          typeof cleanTime === "function"
+            ? cleanTime(clase.start_time)
+            : String(clase.start_time || "")
+              .substring(0, 5);
+
+        const group =
+          clase.group_name
+            ? " - " +
+              escAttendance(
+                clase.group_name
+              )
+            : "";
+
+        const todayMark =
+          Number(clase.weekday) === jsDay
+            ? " ⭐"
+            : "";
+
+        return `
+          <option value="${escAttendance(clase.id)}">
+            ${escAttendance(
+              dayNames[
+                Number(clase.weekday)
+              ] || "Día"
+            )}
+            ${todayMark}
+            ${time}${group}
+          </option>
+        `;
+
+      }).join("");
+
+    /* Seleccionar automáticamente la primera clase del día */
+
+    const todayClass =
+      list.find(function (clase) {
+        return Number(clase.weekday) === jsDay;
+      });
+
+    if (todayClass) {
+
+      select.value =
+        String(todayClass.id);
+    }
+  }
+
+  /* ---------- CARGAR ASISTENCIA ---------- */
+
+  async function loadAttendance() {
+
+    ensureAttendanceUI();
+
+    if (
+      !currentBox ||
+      !currentBox.id
+    ) {
+      return;
+    }
+
+    populateAttendanceClasses();
+
+    await loadAttendanceMembers();
+  }
+
+  /* ---------- CARGAR SOCIOS ---------- */
+
+  async function loadAttendanceMembers() {
+
+    const list =
+      document.getElementById(
+        "attendanceList"
+      );
+
+    if (!list) return;
+
+    if (
+      !currentBox ||
+      !currentBox.id
+    ) {
+      list.innerHTML =
+        "No hay un box seleccionado.";
+
+      return;
+    }
+
+    const classSelect =
+      document.getElementById(
+        "attendanceClass"
+      );
+
+    const classId =
+      classSelect
+        ? classSelect.value
+        : "";
+
+    if (!classId) {
+
+      list.innerHTML =
+        "Seleccioná una clase.";
+
+      return;
+    }
+
+    const selectedClass =
+      Array.isArray(classes)
+        ? classes.find(function (c) {
+            return String(c.id) ===
+              String(classId);
+          })
+        : null;
+
+    list.innerHTML =
+      "Cargando socios...";
+
+    /* ---------- SOCIOS ---------- */
+
+    const {
+      data: memberships,
+      error: membersError
+    } = await supabaseClient
+      .from("box_members")
+      .select(
+        "id,user_id,role,status,group_name"
+      )
+      .eq(
+        "box_id",
+        currentBox.id
+      )
+      .eq(
+        "role",
+        "athlete"
+      )
+      .eq(
+        "status",
+        "active"
+      );
+
+    if (membersError) {
+
+      list.innerHTML =
+        "No se pudieron cargar los socios: " +
+        escAttendance(
+          membersError.message
+        );
+
+      return;
+    }
+
+    if (
+      !memberships ||
+      memberships.length === 0
+    ) {
+
+      attendanceMembers = [];
+
+      attendanceState = {};
+
+      list.innerHTML =
+        "No hay socios activos.";
+
+      return;
+    }
+
+    /* ---------- PERFILES ---------- */
+
+    const userIds =
+      memberships
+        .map(function (m) {
+          return m.user_id;
+        })
+        .filter(Boolean);
+
+    const {
+      data: profiles,
+      error: profilesError
+    } = await supabaseClient
+      .from("profiles")
+      .select(
+        "id,first_name,last_name,phone"
+      )
+      .in(
+        "id",
+        userIds
+      );
+
+    if (profilesError) {
+
+      list.innerHTML =
+        "No se pudieron cargar los perfiles: " +
+        escAttendance(
+          profilesError.message
+        );
+
+      return;
+    }
+
+    const profileMap = {};
+
+    (profiles || []).forEach(
+      function (profile) {
+
+        profileMap[
+          String(profile.id)
+        ] = profile;
+
+      }
+    );
+
+    /* ---------- FILTRO POR GRUPO ---------- */
+
+    attendanceMembers =
+      memberships
+        .filter(function (member) {
+
+          if (
+            !selectedClass ||
+            !selectedClass.group_name
+          ) {
+            return true;
+          }
+
+          if (!member.group_name) {
+            return true;
+          }
+
+          return (
+            String(
+              member.group_name
+            ).trim().toLowerCase()
+            ===
+            String(
+              selectedClass.group_name
+            ).trim().toLowerCase()
+          );
+
+        })
+        .map(function (member) {
+
+          const profile =
+            profileMap[
+              String(member.user_id)
+            ] || {};
+
+          return {
+            user_id: member.user_id,
+            group_name:
+              member.group_name || "",
+            first_name:
+              profile.first_name || "",
+            last_name:
+              profile.last_name || "",
+            phone:
+              profile.phone || ""
+          };
+
+        });
+
+    attendanceState = {};
+
+    /* ---------- ASISTENCIAS EXISTENTES ---------- */
+
+    const dateInput =
+      document.getElementById(
+        "attendanceDate"
+      );
+
+    const attendanceDate =
+      dateInput
+        ? dateInput.value
+        : todayAttendance();
+
+    const {
+      data: existing,
+      error: existingError
+    } = await supabaseClient
+      .from("class_attendance")
+      .select(
+        "athlete_id,status"
+      )
+      .eq(
+        "box_id",
+        currentBox.id
+      )
+      .eq(
+        "class_id",
+        classId
+      )
+      .eq(
+        "attendance_date",
+        attendanceDate
+      );
+
+    if (
+      existingError &&
+      existingError.code !== "PGRST116"
+    ) {
+
+      list.innerHTML =
+        "No se pudo consultar la asistencia: " +
+        escAttendance(
+          existingError.message
+        );
+
+      return;
+    }
+
+    (existing || []).forEach(
+      function (row) {
+
+        attendanceState[
+          String(row.athlete_id)
+        ] = row.status;
+
+      }
+    );
+
+    renderAttendanceMembers();
+  }
+
+  /* ---------- RENDER ---------- */
+
+  function renderAttendanceMembers() {
+
+    const list =
+      document.getElementById(
+        "attendanceList"
+      );
+
+    if (!list) return;
+
+    if (
+      !attendanceMembers ||
+      attendanceMembers.length === 0
+    ) {
+
+      list.innerHTML =
+        `<div style="
+          padding:20px;
+          text-align:center;
+          opacity:.7;
+        ">
+          No hay socios para esta clase.
+        </div>`;
+
+      return;
+    }
+
+    list.innerHTML =
+      attendanceMembers.map(
+        function (member) {
+
+          const id =
+            String(member.user_id);
+
+          const name =
+            (
+              member.first_name +
+              " " +
+              member.last_name
+            ).trim() ||
+            "Socio";
+
+          const status =
+            attendanceState[id] || "";
+
+          const presentStyle =
+            status === "present"
+              ? "font-weight:bold;"
+              : "";
+
+          const absentStyle =
+            status === "absent"
+              ? "font-weight:bold;"
+              : "";
+
+          return `
+
+            <div style="
+              display:flex;
+              align-items:center;
+              justify-content:space-between;
+              gap:10px;
+              padding:12px;
+              margin-bottom:8px;
+              border:1px solid rgba(128,128,128,.25);
+              border-radius:10px;
+            ">
+
+              <div style="
+                min-width:0;
+                flex:1;
+              ">
+
+                <strong>
+                  ${escAttendance(name)}
+                </strong>
+
+                ${
+                  member.group_name
+                    ? `
+                      <div style="
+                        font-size:12px;
+                        opacity:.65;
+                      ">
+                        ${escAttendance(
+                          member.group_name
+                        )}
+                      </div>
+                    `
+                    : ""
+                }
+
+              </div>
+
+              <div style="
+                display:flex;
+                gap:6px;
+                flex-shrink:0;
+              ">
+
+                <button
+                  type="button"
+                  onclick="setAttendanceStatus('${escAttendance(id)}','present')"
+                  style="${presentStyle}"
+                >
+                  ✅
+                </button>
+
+                <button
+                  type="button"
+                  onclick="setAttendanceStatus('${escAttendance(id)}','absent')"
+                  style="${absentStyle}"
+                >
+                  ❌
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      ).join("");
+  }
+
+  /* ---------- MARCAR UNO ---------- */
+
+  window.setAttendanceStatus =
+    function (
+      athleteId,
+      status
+    ) {
+
+      attendanceState[
+        String(athleteId)
+      ] = status;
+
+      renderAttendanceMembers();
+    };
+
+  /* ---------- MARCAR TODOS ---------- */
+
+  window.markAllAttendance =
+    function (status) {
+
+      attendanceMembers.forEach(
+        function (member) {
+
+          attendanceState[
+            String(member.user_id)
+          ] = status;
+
+        }
+      );
+
+      renderAttendanceMembers();
+    };
+
+  /* ---------- GUARDAR ---------- */
+
+  window.saveAttendance =
+    async function () {
+
+      const message =
+        document.getElementById(
+          "attendanceMessage"
+        );
+
+      const button =
+        document.getElementById(
+          "saveAttendanceBtn"
+        );
+
+      const classSelect =
+        document.getElementById(
+          "attendanceClass"
+        );
+
+      const dateInput =
+        document.getElementById(
+          "attendanceDate"
+        );
+
+      const classId =
+        classSelect
+          ? classSelect.value
+          : "";
+
+      const attendanceDate =
+        dateInput
+          ? dateInput.value
+          : "";
+
+      if (!currentBox || !currentBox.id) {
+
+        if (message) {
+          message.textContent =
+            "No hay un box seleccionado.";
+        }
+
+        return;
+      }
+
+      if (!classId) {
+
+        if (message) {
+          message.textContent =
+            "Seleccioná una clase.";
+        }
+
+        return;
+      }
+
+      if (!attendanceDate) {
+
+        if (message) {
+          message.textContent =
+            "Seleccioná una fecha.";
+        }
+
+        return;
+      }
+
+      /* ---------- PERMISOS ---------- */
+
+      const role =
+        currentMembership &&
+        currentMembership.role
+          ? String(
+              currentMembership.role
+            ).toLowerCase()
+          : "";
+
+      if (
+        role === "athlete" ||
+        role === "member"
+      ) {
+
+        if (message) {
+          message.textContent =
+            "No tenés permisos para guardar asistencia.";
+        }
+
+        return;
+      }
+
+      if (button) {
+        button.disabled = true;
+        button.textContent =
+          "Guardando...";
+      }
+
+      if (message) {
+        message.textContent = "";
+      }
+
+      try {
+
+        for (
+          const member
+          of attendanceMembers
+        ) {
+
+          const athleteId =
+            member.user_id;
+
+          const status =
+            attendanceState[
+              String(athleteId)
+            ];
+
+          /* Si no está marcado, no se guarda */
+
+          if (
+            status !== "present" &&
+            status !== "absent"
+          ) {
+            continue;
+          }
+
+          /* Buscar registro existente */
+
+          const {
+            data: existing,
+            error: findError
+          } = await supabaseClient
+            .from("class_attendance")
+            .select("id")
+            .eq(
+              "box_id",
+              currentBox.id
+            )
+            .eq(
+              "class_id",
+              classId
+            )
+            .eq(
+              "athlete_id",
+              athleteId
+            )
+            .eq(
+              "attendance_date",
+              attendanceDate
+            )
+            .maybeSingle();
+
+          if (findError) {
+            throw findError;
+          }
+
+          /* Actualizar */
+
+          if (existing) {
+
+            const {
+              error
+            } = await supabaseClient
+              .from(
+                "class_attendance"
+              )
+              .update({
+                status: status
+              })
+              .eq(
+                "id",
+                existing.id
+              )
+              .eq(
+                "box_id",
+                currentBox.id
+              );
+
+            if (error) {
+              throw error;
+            }
+
+          }
+
+          /* Crear */
+
+          else {
+
+            const {
+              error
+            } = await supabaseClient
+              .from(
+                "class_attendance"
+              )
+              .insert({
+
+                box_id:
+                  currentBox.id,
+
+                class_id:
+                  classId,
+
+                athlete_id:
+                  athleteId,
+
+                attendance_date:
+                  attendanceDate,
+
+                status:
+                  status
+
+              });
+
+            if (error) {
+              throw error;
+            }
+
+          }
+        }
+
+        if (message) {
+
+          message.innerHTML =
+            `<span style="font-weight:bold;">
+              ✅ Asistencia guardada correctamente.
+            </span>`;
+
+        }
+
+        await loadAttendanceMembers();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Error guardando asistencia:",
+          error
+        );
+
+        if (message) {
+
+          message.innerHTML =
+            `<span style="color:red;">
+              ❌ No se pudo guardar la asistencia:
+              ${escAttendance(
+                error.message
+              )}
+            </span>`;
+
+        }
+
+      }
+
+      finally {
+
+        if (button) {
+
+          button.disabled = false;
+
+          button.textContent =
+            "💾 Guardar asistencia";
+
+        }
+
+      }
+    };
+
+  /* ---------- INICIO ---------- */
+
+  function initAttendance() {
+
+    ensureAttendanceUI();
+
+    const dateInput =
+      document.getElementById(
+        "attendanceDate"
+      );
+
+    if (
+      dateInput &&
+      !dateInput.value
+    ) {
+
+      dateInput.value =
+        todayAttendance();
+
+    }
+
+  }
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initAttendance
+    );
+
+  } else {
+
+    initAttendance();
+
+  }
+
+})();
 </script>
 
 </body>
