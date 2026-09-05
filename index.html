@@ -686,5 +686,120 @@ const supabaseClient = window.supabase.createClient(
 
 console.log("WODLY conectado a Supabase");
 </script>
+  <style>
+#wodly-login {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0f;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.wodly-login-box {
+  width: 100%;
+  max-width: 400px;
+  background: #15151c;
+  border-radius: 20px;
+  padding: 30px 22px;
+  text-align: center;
+}
+
+.wodly-login-box h1 {
+  font-size: 38px;
+  margin: 0 0 5px;
+}
+
+.wodly-login-box p {
+  color: #999;
+  margin-bottom: 25px;
+}
+
+.wodly-login-box input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background: #0d0d12;
+  color: white;
+  font-size: 16px;
+}
+
+.wodly-login-box button {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 12px;
+  background: white;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+#wodly-login-message {
+  margin-top: 15px;
+  color: #aaa;
+}
+</style>
+
+<div id="wodly-login">
+  <div class="wodly-login-box">
+    <h1>WODLY</h1>
+    <p>Gestión inteligente para tu Box</p>
+
+    <input
+      id="wodly-email"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
+
+    <input
+      id="wodly-password"
+      type="password"
+      placeholder="Contraseña"
+      autocomplete="current-password"
+    >
+
+    <button onclick="wodlyLogin()">INGRESAR</button>
+
+    <div id="wodly-login-message"></div>
+  </div>
+</div>
+
+<script>
+async function wodlyLogin() {
+  const email = document.getElementById("wodly-email").value.trim();
+  const password = document.getElementById("wodly-password").value;
+  const message = document.getElementById("wodly-login-message");
+
+  if (!email || !password) {
+    message.textContent = "Ingresá tu email y contraseña.";
+    return;
+  }
+
+  message.textContent = "Ingresando...";
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+  if (error) {
+    message.textContent = "Error: " + error.message;
+    return;
+  }
+
+  message.textContent = "¡Bienvenido a WODLY!";
+
+  document.getElementById("wodly-login").style.display = "none";
+}
+</script>
 </body>
 </html>
