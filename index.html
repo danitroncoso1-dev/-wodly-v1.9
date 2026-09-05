@@ -40,7 +40,7 @@ button{
 }
 
 header{
-  padding:22px 18px;
+  padding:20px 18px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -52,7 +52,7 @@ header{
 }
 
 .logo{
-  font-size:26px;
+  font-size:27px;
   font-weight:900;
   letter-spacing:2px;
 }
@@ -68,7 +68,7 @@ header{
 }
 
 .logout{
-  background:#222229;
+  background:#24242b;
   color:#fff;
   border:0;
   border-radius:10px;
@@ -79,7 +79,7 @@ nav{
   display:flex;
   overflow-x:auto;
   gap:7px;
-  padding:12px;
+  padding:11px;
   background:#111116;
   border-bottom:1px solid #24242b;
 }
@@ -104,7 +104,7 @@ main{
 
 .card{
   background:#15151b;
-  border:1px solid #25252d;
+  border:1px solid #27272f;
   border-radius:16px;
   padding:17px;
   margin-bottom:15px;
@@ -120,11 +120,6 @@ h3{
   margin-bottom:10px;
 }
 
-.muted{
-  color:#999;
-  font-size:13px;
-}
-
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -133,7 +128,7 @@ h3{
 
 .stat{
   background:#15151b;
-  border:1px solid #25252d;
+  border:1px solid #27272f;
   border-radius:15px;
   padding:16px;
 }
@@ -153,11 +148,12 @@ label{
   display:block;
   color:#aaa;
   font-size:13px;
-  margin-bottom:6px;
-  margin-top:12px;
+  margin:12px 0 6px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   background:#0d0d12;
   color:#fff;
@@ -167,7 +163,9 @@ input,select,textarea{
   outline:none;
 }
 
-input:focus,select:focus,textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
   border-color:#ff5a1f;
 }
 
@@ -307,6 +305,7 @@ textarea{
 
 .wod-box{
   border-left:4px solid #ff5a1f;
+  padding-left:12px;
 }
 
 .wod-title{
@@ -339,21 +338,39 @@ textarea{
 
 <!-- LOGIN -->
 <section id="loginScreen" class="login">
+
   <div class="login-box">
 
-    <div class="login-logo">WOD<span>LY</span></div>
-    <div class="login-sub">Gestión inteligente para tu box</div>
+    <div class="login-logo">
+      WOD<span>LY</span>
+    </div>
+
+    <div class="login-sub">
+      Gestión inteligente para tu box
+    </div>
 
     <label>Email</label>
-    <input id="loginEmail" type="email" placeholder="tu@email.com">
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="tu@email.com"
+    >
 
     <label>Contraseña</label>
-    <input id="loginPassword" type="password" placeholder="••••••••">
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="••••••••"
+    >
 
-    <button class="btn btn-primary" onclick="login()">INGRESAR</button>
+    <button class="btn btn-primary" onclick="login()">
+      INGRESAR
+    </button>
 
     <div id="loginMessage" class="message"></div>
+
   </div>
+
 </section>
 
 
@@ -361,26 +378,77 @@ textarea{
 <section id="appScreen" class="hidden app">
 
 <header>
+
   <div>
-    <div class="logo">WOD<span>LY</span></div>
-    <div id="boxNameHeader" class="box-name">Cargando...</div>
+
+    <div class="logo">
+      WOD<span>LY</span>
+    </div>
+
+    <div id="boxNameHeader" class="box-name">
+      Cargando...
+    </div>
+
   </div>
 
-  <button class="logout" onclick="logout()">Salir</button>
+  <button class="logout" onclick="logout()">
+    Salir
+  </button>
+
 </header>
 
+
 <nav>
-  <button class="nav-btn active" onclick="showSection('dashboard',this)">Inicio</button>
-  <button class="nav-btn" onclick="showSection('members',this)">Socios</button>
-  <button class="nav-btn" onclick="showSection('payments',this)">Pagos</button>
-  <button class="nav-btn" onclick="showSection('classes',this)">Clases</button>
-  <button class="nav-btn" onclick="showSection('wod',this)">WOD</button>
-  <button class="nav-btn" onclick="showSection('config',this)">Config.</button>
+
+  <button
+    class="nav-btn active"
+    onclick="showSection('dashboard',this)"
+  >
+    Inicio
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showSection('members',this)"
+  >
+    Socios
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showSection('payments',this)"
+  >
+    Pagos
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showSection('classes',this)"
+  >
+    Clases
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showSection('wod',this)"
+  >
+    WOD
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showSection('config',this)"
+  >
+    Config.
+  </button>
+
 </nav>
+
 
 <main>
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
+
 <section id="dashboard" class="section">
 
   <h2>Dashboard</h2>
@@ -388,70 +456,160 @@ textarea{
   <div class="grid">
 
     <div class="stat">
-      <div class="stat-label">SOCIOS</div>
-      <div id="totalMembers" class="stat-number">0</div>
+      <div class="stat-label">
+        SOCIOS
+      </div>
+
+      <div id="totalMembers" class="stat-number">
+        0
+      </div>
     </div>
 
-    <div class="stat">
-      <div class="stat-label">ACTIVOS</div>
-      <div id="activeMembers" class="stat-number">0</div>
-    </div>
 
     <div class="stat">
-      <div class="stat-label">PAGOS PENDIENTES</div>
-      <div id="pendingPayments" class="stat-number">0</div>
+      <div class="stat-label">
+        ACTIVOS
+      </div>
+
+      <div id="activeMembers" class="stat-number">
+        0
+      </div>
     </div>
 
+
     <div class="stat">
-      <div class="stat-label">CLASES</div>
-      <div id="totalClasses" class="stat-number">0</div>
+      <div class="stat-label">
+        PAGOS PENDIENTES
+      </div>
+
+      <div id="pendingPayments" class="stat-number">
+        0
+      </div>
+    </div>
+
+
+    <div class="stat">
+      <div class="stat-label">
+        CLASES
+      </div>
+
+      <div id="totalClasses" class="stat-number">
+        0
+      </div>
     </div>
 
   </div>
 
+
   <div class="card" style="margin-top:15px">
-    <h3>WOD de hoy</h3>
-    <div id="dashboardWod" class="muted">Cargando...</div>
+
+    <h3>
+      WOD de hoy
+    </h3>
+
+    <div id="dashboardWod" class="muted">
+      Cargando...
+    </div>
+
   </div>
 
 </section>
 
 
-<!-- SOCIOS -->
+<!-- ================= SOCIOS ================= -->
+
 <section id="members" class="section hidden">
 
-  <h2>Socios</h2>
+  <h2>
+    Socios
+  </h2>
+
 
   <div class="card">
 
-    <h3>Nuevo socio</h3>
+    <h3>
+      Nuevo socio
+    </h3>
 
-    <label>Nombre</label>
-    <input id="memberFirstName" placeholder="Nombre">
 
-    <label>Apellido</label>
-    <input id="memberLastName" placeholder="Apellido">
+    <label>
+      Nombre
+    </label>
 
-    <label>Email</label>
-    <input id="memberEmail" type="email" placeholder="socio@email.com">
+    <input
+      id="memberFirstName"
+      placeholder="Nombre"
+    >
 
-    <label>Teléfono</label>
-    <input id="memberPhone" placeholder="351...">
 
-    <label>Grupo</label>
-    <input id="memberGroup" placeholder="Ej: Adultos">
+    <label>
+      Apellido
+    </label>
 
-    <button class="btn btn-primary" onclick="addMember()">AGREGAR SOCIO</button>
+    <input
+      id="memberLastName"
+      placeholder="Apellido"
+    >
 
-    <div id="memberMessage" class="message"></div>
+
+    <label>
+      Email
+    </label>
+
+    <input
+      id="memberEmail"
+      type="email"
+      placeholder="socio@email.com"
+    >
+
+
+    <label>
+      Teléfono
+    </label>
+
+    <input
+      id="memberPhone"
+      placeholder="351..."
+    >
+
+
+    <label>
+      Grupo
+    </label>
+
+    <input
+      id="memberGroup"
+      placeholder="Ej: Adultos"
+    >
+
+
+    <button
+      class="btn btn-primary"
+      onclick="addMember()"
+    >
+      AGREGAR SOCIO
+    </button>
+
+
+    <div
+      id="memberMessage"
+      class="message"
+    ></div>
 
   </div>
 
+
   <div class="card">
 
-    <h3>Buscar socio</h3>
+    <h3>
+      Buscar socio
+    </h3>
 
-    <input id="memberSearch" placeholder="Nombre, apellido o email..." oninput="renderMembers()">
+    <input
+      id="memberSearch"
+      placeholder="Nombre, apellido o teléfono..."
+      oninput="renderMembers()"
+    >
 
     <div id="membersList"></div>
 
@@ -460,36 +618,85 @@ textarea{
 </section>
 
 
-<!-- PAGOS -->
+<!-- ================= PAGOS ================= -->
+
 <section id="payments" class="section hidden">
 
-  <h2>Pagos</h2>
+  <h2>
+    Pagos
+  </h2>
+
 
   <div class="card">
 
-    <h3>Registrar pago</h3>
+    <h3>
+      Registrar pago
+    </h3>
 
-    <label>Socio</label>
-    <select id="paymentMember"></select>
 
-    <label>Monto</label>
-    <input id="paymentAmount" type="number" placeholder="30000">
+    <label>
+      Socio
+    </label>
 
-    <label>Fecha de vencimiento</label>
-    <input id="paymentDueDate" type="date">
+    <select id="paymentMember">
+      <option value="">
+        Seleccionar socio...
+      </option>
+    </select>
 
-    <label>Notas</label>
-    <textarea id="paymentNotes" placeholder="Observaciones..."></textarea>
 
-    <button class="btn btn-primary" onclick="addPayment()">REGISTRAR PAGO</button>
+    <label>
+      Monto
+    </label>
 
-    <div id="paymentMessage" class="message"></div>
+    <input
+      id="paymentAmount"
+      type="number"
+      placeholder="30000"
+    >
+
+
+    <label>
+      Fecha de vencimiento
+    </label>
+
+    <input
+      id="paymentDueDate"
+      type="date"
+    >
+
+
+    <label>
+      Notas
+    </label>
+
+    <textarea
+      id="paymentNotes"
+      placeholder="Observaciones..."
+    ></textarea>
+
+
+    <button
+      class="btn btn-primary"
+      onclick="addPayment()"
+    >
+      REGISTRAR PAGO
+    </button>
+
+
+    <div
+      id="paymentMessage"
+      class="message"
+    ></div>
 
   </div>
 
+
   <div class="card">
 
-    <h3>Últimos pagos</h3>
+    <h3>
+      Últimos pagos
+    </h3>
 
     <div id="paymentsList"></div>
 
@@ -498,29 +705,63 @@ textarea{
 </section>
 
 
-<!-- CLASES -->
+<!-- ================= CLASES ================= -->
+
 <section id="classes" class="section hidden">
 
-  <h2>Clases</h2>
+  <h2>
+    Clases
+  </h2>
+
 
   <div class="card">
 
-    <h3>Nueva clase</h3>
+    <h3>
+      Nueva clase
+    </h3>
 
-    <label>Día</label>
+
+    <label>
+      Día
+    </label>
+
     <select id="classWeekday">
-      <option value="1">Lunes</option>
-      <option value="2">Martes</option>
-      <option value="3">Miércoles</option>
-      <option value="4">Jueves</option>
-      <option value="5">Viernes</option>
-      <option value="6">Sábado</option>
-      <option value="0">Domingo</option>
+
+      <option value="1">
+        Lunes
+      </option>
+
+      <option value="2">
+        Martes
+      </option>
+
+      <option value="3">
+        Miércoles
+      </option>
+
+      <option value="4">
+        Jueves
+      </option>
+
+      <option value="5">
+        Viernes
+      </option>
+
+      <option value="6">
+        Sábado
+      </option>
+
+      <option value="0">
+        Domingo
+      </option>
+
     </select>
 
-    <label>Hora</label>
 
-    <!-- IMPORTANTE: text en lugar de type=time para evitar el problema del iPhone -->
+    <label>
+      Hora
+    </label>
+
     <input
       id="classTime"
       type="text"
@@ -531,25 +772,56 @@ textarea{
       oninput="formatTime(this)"
     >
 
-    <div class="muted" style="margin-top:6px">
+    <div
+      class="muted"
+      style="margin-top:6px"
+    >
       Escribí la hora en formato 24 hs. Ejemplo: 18:00
     </div>
 
-    <label>Capacidad</label>
-    <input id="classCapacity" type="number" value="15">
 
-    <label>Grupo</label>
-    <input id="classGroup" placeholder="Ej: Adultos">
+    <label>
+      Capacidad
+    </label>
 
-    <button class="btn btn-primary" onclick="addClass()">CREAR CLASE</button>
+    <input
+      id="classCapacity"
+      type="number"
+      value="15"
+    >
 
-    <div id="classMessage" class="message"></div>
+
+    <label>
+      Grupo
+    </label>
+
+    <input
+      id="classGroup"
+      placeholder="Ej: Adultos"
+    >
+
+
+    <button
+      class="btn btn-primary"
+      onclick="addClass()"
+    >
+      CREAR CLASE
+    </button>
+
+
+    <div
+      id="classMessage"
+      class="message"
+    ></div>
 
   </div>
 
+
   <div class="card">
 
-    <h3>Clases programadas</h3>
+    <h3>
+      Clases programadas
+    </h3>
 
     <div id="classesList"></div>
 
@@ -558,30 +830,65 @@ textarea{
 </section>
 
 
-<!-- WOD -->
+<!-- ================= WOD ================= -->
+
 <section id="wod" class="section hidden">
 
-  <h2>WOD</h2>
+  <h2>
+    WOD
+  </h2>
+
 
   <div class="card">
 
-    <h3>Crear WOD de hoy</h3>
+    <h3>
+      Crear WOD de hoy
+    </h3>
 
-    <label>Título</label>
-    <input id="wodTitle" placeholder="Ej: Fran">
 
-    <label>Descripción</label>
-    <textarea id="wodDescription" placeholder="21-15-9&#10;Thrusters&#10;Pull Ups"></textarea>
+    <label>
+      Título
+    </label>
 
-    <button class="btn btn-primary" onclick="saveWod()">PUBLICAR WOD</button>
+    <input
+      id="wodTitle"
+      placeholder="Ej: Fran"
+    >
 
-    <div id="wodMessage" class="message"></div>
+
+    <label>
+      Descripción
+    </label>
+
+    <textarea
+      id="wodDescription"
+      placeholder="21-15-9
+Thrusters
+Pull Ups"
+    ></textarea>
+
+
+    <button
+      class="btn btn-primary"
+      onclick="saveWod()"
+    >
+      PUBLICAR WOD
+    </button>
+
+
+    <div
+      id="wodMessage"
+      class="message"
+    ></div>
 
   </div>
 
+
   <div class="card">
 
-    <h3>WOD de hoy</h3>
+    <h3>
+      WOD de hoy
+    </h3>
 
     <div id="todayWod"></div>
 
@@ -590,36 +897,69 @@ textarea{
 </section>
 
 
-<!-- CONFIG -->
+<!-- ================= CONFIG ================= -->
+
 <section id="config" class="section hidden">
 
-  <h2>Configuración</h2>
+  <h2>
+    Configuración
+  </h2>
+
 
   <div class="card">
 
-    <h3>Datos del box</h3>
+    <h3>
+      Datos del box
+    </h3>
 
-    <label>Nombre</label>
+
+    <label>
+      Nombre
+    </label>
+
     <input id="configName">
 
-    <label>Ciudad</label>
+
+    <label>
+      Ciudad
+    </label>
+
     <input id="configCity">
 
-    <label>Dirección</label>
+
+    <label>
+      Dirección
+    </label>
+
     <input id="configAddress">
 
-    <label>Teléfono</label>
+
+    <label>
+      Teléfono
+    </label>
+
     <input id="configPhone">
 
-    <button class="btn btn-primary" onclick="saveConfig()">GUARDAR CAMBIOS</button>
 
-    <div id="configMessage" class="message"></div>
+    <button
+      class="btn btn-primary"
+      onclick="saveConfig()"
+    >
+      GUARDAR CAMBIOS
+    </button>
+
+
+    <div
+      id="configMessage"
+      class="message"
+    ></div>
 
   </div>
 
 </section>
 
 </main>
+
 
 <div class="footer">
   WODLY · Gestión para boxes de CrossFit
@@ -630,29 +970,49 @@ textarea{
 
 <script>
 
-const SUPABASE_URL = "https://euujfhmvywhfjeguwtfp.supabase.co";
+/* ==================================================
+   SUPABASE
+================================================== */
+
+const SUPABASE_URL =
+"https://euujfhmvywhfjeguwtfp.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_056Oipb341JdaNsugdyWPw_49m2RUYy";
 
 const supabaseClient =
-  window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
+
+/* ==================================================
+   VARIABLES
+================================================== */
 
 let currentUser = null;
 let currentBox = null;
 let currentMembership = null;
+
 let members = [];
 let payments = [];
 let classes = [];
 
 
-/* =========================
+/* ==================================================
    UTILIDADES
-========================= */
+================================================== */
 
 function escapeHtml(value){
-  if(value === null || value === undefined) return "";
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
   return String(value)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -662,69 +1022,104 @@ function escapeHtml(value){
 }
 
 
-function showMessage(id,text,type="ok"){
-  const el = document.getElementById(id);
+function showMessage(
+  id,
+  text,
+  type="ok"
+){
 
-  if(!el) return;
+  const element =
+    document.getElementById(id);
 
-  el.textContent = text;
-  el.className = "message " + type;
+  if(!element){
+    return;
+  }
+
+  element.textContent = text;
+
+  element.className =
+    "message " + type;
 
   setTimeout(()=>{
-    el.className = "message";
+    element.className="message";
   },4000);
 }
 
 
 function today(){
-  return new Date().toISOString().split("T")[0];
+
+  return new Date()
+    .toISOString()
+    .split("T")[0];
+
 }
 
 
 function formatDate(date){
-  if(!date) return "-";
 
-  const d = new Date(date + "T00:00:00");
+  if(!date){
+    return "-";
+  }
+
+  const d =
+    new Date(date + "T00:00:00");
 
   return d.toLocaleDateString("es-AR");
 }
 
 
 function formatMoney(value){
-  return Number(value || 0).toLocaleString("es-AR",{
-    style:"currency",
-    currency:"ARS",
-    maximumFractionDigits:0
-  });
+
+  return Number(value || 0)
+    .toLocaleString(
+      "es-AR",
+      {
+        style:"currency",
+        currency:"ARS",
+        maximumFractionDigits:0
+      }
+    );
 }
 
 
-/* =========================
+/* ==================================================
    LOGIN
-========================= */
+================================================== */
 
 async function login(){
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById("loginPassword")
+      .value;
 
   if(!email || !password){
+
     showMessage(
       "loginMessage",
-      "Completá email y contraseña",
+      "Completá email y contraseña.",
       "error"
     );
+
     return;
   }
 
-  const {error} =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
 
   if(error){
 
@@ -737,17 +1132,26 @@ async function login(){
     return;
   }
 
+
+  currentUser =
+    data.user;
+
+
   await initializeApp();
 }
 
+
+/* ==================================================
+   LOGOUT
+================================================== */
 
 async function logout(){
 
   await supabaseClient.auth.signOut();
 
-  currentUser = null;
-  currentBox = null;
-  currentMembership = null;
+  currentUser=null;
+  currentBox=null;
+  currentMembership=null;
 
   document
     .getElementById("appScreen")
@@ -759,170 +1163,337 @@ async function logout(){
 }
 
 
-/* =========================
-   INICIALIZAR
-========================= */
+/* ==================================================
+   INICIALIZAR APP
+================================================== */
 
 async function initializeApp(){
 
-  const {
-    data:{user}
-  } = await supabaseClient.auth.getUser();
+  try{
 
-  if(!user){
-    return;
-  }
+    const {
+      data:{
+        user
+      }
+    } =
+    await supabaseClient.auth.getUser();
 
-  currentUser = user;
 
-  const {data:membership,error:membershipError} =
+    if(!user){
+
+      return;
+    }
+
+
+    currentUser=user;
+
+
+    /*
+      CORRECCIÓN IMPORTANTE
+
+      Traemos las membresías del usuario
+      sin filtrar primero por status.
+
+      Después elegimos la activa desde
+      JavaScript.
+    */
+
+    const {
+      data:memberships,
+      error:membershipError
+    } =
     await supabaseClient
       .from("box_members")
-      .select("*")
-      .eq("user_id",user.id)
-      .eq("status","active")
-      .limit(1)
-      .maybeSingle();
+      .select(
+        "id,user_id,box_id,role,status,group_name"
+      )
+      .eq(
+        "user_id",
+        user.id
+      );
 
-  if(membershipError || !membership){
 
-    alert(
-      "Tu usuario no tiene un box activo asociado."
-    );
+    if(membershipError){
 
-    await logout();
+      console.error(
+        "Error cargando membresía:",
+        membershipError
+      );
 
-    return;
-  }
+      alert(
+        "No se pudo consultar tu membresía. " +
+        membershipError.message
+      );
 
-  currentMembership = membership;
+      return;
+    }
 
-  const {data:box,error:boxError} =
+
+    if(!memberships || !memberships.length){
+
+      alert(
+        "No encontramos una membresía para este usuario."
+      );
+
+      return;
+    }
+
+
+    /*
+      Buscamos primero una membresía activa.
+    */
+
+    const activeMembership =
+      memberships.find(
+        item =>
+          item.status === "active"
+      );
+
+
+    if(!activeMembership){
+
+      alert(
+        "Tu usuario tiene una membresía, " +
+        "pero no está activa."
+      );
+
+      return;
+    }
+
+
+    currentMembership =
+      activeMembership;
+
+
+    /*
+      Ahora buscamos el box.
+    */
+
+    const {
+      data:box,
+      error:boxError
+    } =
     await supabaseClient
       .from("boxes")
       .select("*")
-      .eq("id",membership.box_id)
+      .eq(
+        "id",
+        activeMembership.box_id
+      )
       .single();
 
-  if(boxError || !box){
 
-    alert("No se pudo cargar el box.");
+    if(boxError){
 
-    await logout();
+      console.error(
+        "Error cargando box:",
+        boxError
+      );
 
-    return;
+      alert(
+        "No se pudo cargar tu box. " +
+        boxError.message
+      );
+
+      return;
+    }
+
+
+    if(!box){
+
+      alert(
+        "No encontramos el box asociado."
+      );
+
+      return;
+    }
+
+
+    if(box.status !== "active"){
+
+      alert(
+        "El box no está activo."
+      );
+
+      return;
+    }
+
+
+    currentBox=box;
+
+
+    /*
+      Mostrar aplicación.
+    */
+
+    document
+      .getElementById("loginScreen")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("appScreen")
+      .classList.remove("hidden");
+
+
+    document
+      .getElementById("boxNameHeader")
+      .textContent =
+      box.name || "WODLY";
+
+
+    await loadAll();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Ocurrió un error al iniciar WODLY: " +
+      error.message
+    );
+
   }
-
-  currentBox = box;
-
-  document
-    .getElementById("loginScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("appScreen")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("boxNameHeader")
-    .textContent = box.name || "WODLY";
-
-  await loadAll();
 
 }
 
 
-/* =========================
+/* ==================================================
    CARGAR TODO
-========================= */
+================================================== */
 
 async function loadAll(){
 
-  await Promise.all([
-    loadMembers(),
-    loadPayments(),
-    loadClasses(),
-    loadTodayWod(),
-    loadConfig()
-  ]);
+  await loadMembers();
+
+  await loadPayments();
+
+  await loadClasses();
+
+  await loadTodayWod();
+
+  await loadConfig();
 
   updateDashboard();
-
 }
 
 
-/* =========================
+/* ==================================================
    NAVEGACIÓN
-========================= */
+================================================== */
 
-function showSection(section,button){
+function showSection(
+  section,
+  button
+){
 
   document
     .querySelectorAll(".section")
-    .forEach(el=>{
-      el.classList.add("hidden");
-    });
+    .forEach(
+      element=>{
+        element.classList.add("hidden");
+      }
+    );
+
 
   const target =
     document.getElementById(section);
 
+
   if(target){
+
     target.classList.remove("hidden");
+
   }
+
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
+    .forEach(
+      btn=>{
+        btn.classList.remove("active");
+      }
+    );
+
 
   if(button){
+
     button.classList.add("active");
+
   }
 
-  if(section === "dashboard"){
+
+  if(section==="dashboard"){
+
     updateDashboard();
+
   }
 
-  if(section === "wod"){
+
+  if(section==="wod"){
+
     loadTodayWod();
+
   }
 
-  if(section === "payments"){
+
+  if(section==="payments"){
+
     loadPayments();
+
   }
 
-  if(section === "classes"){
+
+  if(section==="classes"){
+
     loadClasses();
+
   }
+
 }
 
 
-/* =========================
+/* ==================================================
    SOCIOS
-========================= */
+================================================== */
 
 async function loadMembers(){
 
-  const {data,error} =
-    await supabaseClient
-      .from("box_members")
-      .select(`
-        id,
-        user_id,
-        role,
-        status,
-        group_name,
-        created_at,
-        profiles (
-          first_name,
-          last_name,
-          phone
-        )
-      `)
-      .eq("box_id",currentBox.id)
-      .in("role",["athlete","coach"])
-      .order("created_at",{ascending:false});
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("box_members")
+    .select(`
+      id,
+      user_id,
+      role,
+      status,
+      group_name,
+      created_at,
+      profiles (
+        first_name,
+        last_name,
+        phone
+      )
+    `)
+    .eq(
+      "box_id",
+      currentBox.id
+    )
+    .in(
+      "role",
+      ["athlete","coach"]
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
 
   if(error){
 
@@ -935,7 +1506,8 @@ async function loadMembers(){
     return;
   }
 
-  members = data || [];
+
+  members=data || [];
 
   renderMembers();
 
@@ -946,29 +1518,48 @@ async function loadMembers(){
 function renderMembers(){
 
   const container =
-    document.getElementById("membersList");
+    document.getElementById(
+      "membersList"
+    );
 
-  if(!container) return;
+
+  if(!container){
+    return;
+  }
+
 
   const search =
-    (document.getElementById("memberSearch")?.value || "")
-      .toLowerCase()
-      .trim();
+    (
+      document
+        .getElementById(
+          "memberSearch"
+        )?.value || ""
+    )
+    .toLowerCase()
+    .trim();
+
 
   const filtered =
     members.filter(member=>{
 
-      const p = member.profiles || {};
+      const profile =
+        member.profiles || {};
 
-      const text = [
-        p.first_name,
-        p.last_name,
-        p.phone,
+
+      const text=[
+        profile.first_name,
+        profile.last_name,
+        profile.phone,
         member.group_name
-      ].join(" ").toLowerCase();
+      ]
+      .join(" ")
+      .toLowerCase();
+
 
       return text.includes(search);
+
     });
+
 
   if(!filtered.length){
 
@@ -978,72 +1569,146 @@ function renderMembers(){
     return;
   }
 
+
   container.innerHTML =
-    filtered.map(member=>{
+    filtered
+      .map(member=>{
 
-      const p = member.profiles || {};
+        const profile =
+          member.profiles || {};
 
-      const name =
-        `${p.first_name || ""} ${p.last_name || ""}`.trim()
-        || "Sin nombre";
 
-      const active =
-        member.status === "active";
+        const name =
+          `${profile.first_name || ""}
+          ${profile.last_name || ""}`
+          .trim()
+          ||
+          "Sin nombre";
 
-      return `
-        <div class="list-item">
 
-          <div class="row">
+        const active =
+          member.status === "active";
 
-            <div>
-              <strong>${escapeHtml(name)}</strong>
 
-              <div class="muted">
-                ${escapeHtml(member.group_name || "Sin grupo")}
+        return `
+
+          <div class="list-item">
+
+            <div class="row">
+
+              <div>
+
+                <strong>
+                  ${escapeHtml(name)}
+                </strong>
+
+                <div class="muted">
+                  ${escapeHtml(
+                    member.group_name ||
+                    "Sin grupo"
+                  )}
+                </div>
+
+                <div class="muted">
+                  ${escapeHtml(
+                    profile.phone || ""
+                  )}
+                </div>
+
               </div>
 
-              <div class="muted">
-                ${escapeHtml(p.phone || "")}
-              </div>
+
+              <span class="badge ${
+                active
+                ? "badge-green"
+                : "badge-red"
+              }">
+
+                ${
+                  active
+                  ? "ACTIVO"
+                  : "SUSPENDIDO"
+                }
+
+              </span>
+
             </div>
 
-            <span class="badge ${active ? "badge-green":"badge-red"}">
-              ${active ? "ACTIVO":"SUSPENDIDO"}
-            </span>
+
+            <button
+              class="small-btn"
+              style="margin-top:10px"
+              onclick="
+                toggleMember(
+                  '${member.id}',
+                  '${active ? "suspended":"active"}'
+                )
+              "
+            >
+
+              ${
+                active
+                ? "Suspender"
+                : "Activar"
+              }
+
+            </button>
 
           </div>
 
-          <button
-            class="small-btn"
-            style="margin-top:10px"
-            onclick="toggleMember('${member.id}','${active ? "suspended":"active"}')"
-          >
-            ${active ? "Suspender":"Activar"}
-          </button>
+        `;
 
-        </div>
-      `;
-
-    }).join("");
+      })
+      .join("");
 }
 
 
 async function addMember(){
 
   const first_name =
-    document.getElementById("memberFirstName").value.trim();
+    document
+      .getElementById(
+        "memberFirstName"
+      )
+      .value
+      .trim();
+
 
   const last_name =
-    document.getElementById("memberLastName").value.trim();
+    document
+      .getElementById(
+        "memberLastName"
+      )
+      .value
+      .trim();
+
 
   const email =
-    document.getElementById("memberEmail").value.trim();
+    document
+      .getElementById(
+        "memberEmail"
+      )
+      .value
+      .trim();
+
 
   const phone =
-    document.getElementById("memberPhone").value.trim();
+    document
+      .getElementById(
+        "memberPhone"
+      )
+      .value
+      .trim();
+
 
   const group_name =
-    document.getElementById("memberGroup").value.trim();
+    document
+      .getElementById(
+        "memberGroup"
+      )
+      .value
+      .trim();
+
 
   if(!first_name || !email){
 
@@ -1056,10 +1721,12 @@ async function addMember(){
     return;
   }
 
+
   const {
     data,
     error
-  } = await supabaseClient.functions.invoke(
+  } =
+  await supabaseClient.functions.invoke(
     "create-member",
     {
       body:{
@@ -1073,27 +1740,35 @@ async function addMember(){
     }
   );
 
+
   if(error){
 
     showMessage(
       "memberMessage",
-      error.message || "No se pudo crear el socio.",
+      error.message ||
+      "No se pudo crear el socio.",
       "error"
     );
 
     return;
   }
 
-  if(data && data.ok === false){
+
+  if(
+    data &&
+    data.ok === false
+  ){
 
     showMessage(
       "memberMessage",
-      data.message || "No se pudo crear el socio.",
+      data.message ||
+      "No se pudo crear el socio.",
       "error"
     );
 
     return;
   }
+
 
   showMessage(
     "memberMessage",
@@ -1101,11 +1776,41 @@ async function addMember(){
     "ok"
   );
 
-  document.getElementById("memberFirstName").value="";
-  document.getElementById("memberLastName").value="";
-  document.getElementById("memberEmail").value="";
-  document.getElementById("memberPhone").value="";
-  document.getElementById("memberGroup").value="";
+
+  document
+    .getElementById(
+      "memberFirstName"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "memberLastName"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "memberEmail"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "memberPhone"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "memberGroup"
+    )
+    .value="";
+
 
   await loadMembers();
 
@@ -1113,14 +1818,28 @@ async function addMember(){
 }
 
 
-async function toggleMember(id,status){
+async function toggleMember(
+  id,
+  status
+){
 
-  const {error} =
-    await supabaseClient
-      .from("box_members")
-      .update({status})
-      .eq("id",id)
-      .eq("box_id",currentBox.id);
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("box_members")
+    .update({
+      status
+    })
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "box_id",
+      currentBox.id
+    );
+
 
   if(error){
 
@@ -1129,25 +1848,36 @@ async function toggleMember(id,status){
     return;
   }
 
+
   await loadMembers();
 
   updateDashboard();
 }
 
 
-/* =========================
+/* ==================================================
    PAGOS
-========================= */
+================================================== */
 
 function populatePaymentMembers(){
 
   const select =
-    document.getElementById("paymentMember");
+    document.getElementById(
+      "paymentMember"
+    );
 
-  if(!select) return;
+
+  if(!select){
+    return;
+  }
+
 
   const active =
-    members.filter(m=>m.status==="active");
+    members.filter(
+      member =>
+        member.status === "active"
+    );
+
 
   if(!active.length){
 
@@ -1157,39 +1887,71 @@ function populatePaymentMembers(){
     return;
   }
 
+
   select.innerHTML =
     '<option value="">Seleccionar socio...</option>' +
 
-    active.map(member=>{
+    active
+      .map(member=>{
 
-      const p = member.profiles || {};
+        const profile =
+          member.profiles || {};
 
-      const name =
-        `${p.first_name || ""} ${p.last_name || ""}`.trim();
 
-      return `
-        <option value="${member.id}">
-          ${escapeHtml(name || "Sin nombre")}
-        </option>
-      `;
+        const name =
+          `${profile.first_name || ""}
+          ${profile.last_name || ""}`
+          .trim();
 
-    }).join("");
+
+        return `
+          <option value="${member.id}">
+            ${escapeHtml(
+              name || "Sin nombre"
+            )}
+          </option>
+        `;
+
+      })
+      .join("");
 }
 
 
 async function addPayment(){
 
   const member_id =
-    document.getElementById("paymentMember").value;
+    document
+      .getElementById(
+        "paymentMember"
+      )
+      .value;
+
 
   const amount =
-    document.getElementById("paymentAmount").value;
+    document
+      .getElementById(
+        "paymentAmount"
+      )
+      .value;
+
 
   const due_date =
-    document.getElementById("paymentDueDate").value || null;
+    document
+      .getElementById(
+        "paymentDueDate"
+      )
+      .value ||
+      null;
+
 
   const notes =
-    document.getElementById("paymentNotes").value.trim();
+    document
+      .getElementById(
+        "paymentNotes"
+      )
+      .value
+      .trim();
+
 
   if(!member_id || !amount){
 
@@ -1202,18 +1964,22 @@ async function addPayment(){
     return;
   }
 
-  const {error} =
-    await supabaseClient
-      .from("payments")
-      .insert({
-        box_id:currentBox.id,
-        member_id,
-        amount:Number(amount),
-        paid_at:today(),
-        due_date,
-        status:"paid",
-        notes
-      });
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("payments")
+    .insert({
+      box_id:currentBox.id,
+      member_id,
+      amount:Number(amount),
+      paid_at:today(),
+      due_date,
+      status:"paid",
+      notes
+    });
+
 
   if(error){
 
@@ -1226,15 +1992,34 @@ async function addPayment(){
     return;
   }
 
+
   showMessage(
     "paymentMessage",
     "Pago registrado correctamente.",
     "ok"
   );
 
-  document.getElementById("paymentAmount").value="";
-  document.getElementById("paymentDueDate").value="";
-  document.getElementById("paymentNotes").value="";
+
+  document
+    .getElementById(
+      "paymentAmount"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "paymentDueDate"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "paymentNotes"
+    )
+    .value="";
+
 
   await loadPayments();
 
@@ -1244,27 +2029,39 @@ async function addPayment(){
 
 async function loadPayments(){
 
-  const {data,error} =
-    await supabaseClient
-      .from("payments")
-      .select(`
-        id,
-        member_id,
-        amount,
-        paid_at,
-        due_date,
-        status,
-        notes,
-        box_members (
-          profiles (
-            first_name,
-            last_name
-          )
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("payments")
+    .select(`
+      id,
+      member_id,
+      amount,
+      paid_at,
+      due_date,
+      status,
+      notes,
+      box_members (
+        profiles (
+          first_name,
+          last_name
         )
-      `)
-      .eq("box_id",currentBox.id)
-      .order("created_at",{ascending:false})
-      .limit(30);
+      )
+    `)
+    .eq(
+      "box_id",
+      currentBox.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    )
+    .limit(30);
+
 
   if(error){
 
@@ -1277,6 +2074,7 @@ async function loadPayments(){
     return;
   }
 
+
   payments=data || [];
 
   renderPayments();
@@ -1286,9 +2084,15 @@ async function loadPayments(){
 function renderPayments(){
 
   const container =
-    document.getElementById("paymentsList");
+    document.getElementById(
+      "paymentsList"
+    );
 
-  if(!container) return;
+
+  if(!container){
+    return;
+  }
+
 
   if(!payments.length){
 
@@ -1298,81 +2102,127 @@ function renderPayments(){
     return;
   }
 
+
   container.innerHTML =
-    payments.map(payment=>{
+    payments
+      .map(payment=>{
 
-      const p =
-        payment.box_members?.profiles || {};
+        const profile =
+          payment
+            .box_members
+            ?.profiles || {};
 
-      const name =
-        `${p.first_name || ""} ${p.last_name || ""}`.trim()
-        || "Socio";
 
-      return `
-        <div class="list-item">
+        const name =
+          `${profile.first_name || ""}
+          ${profile.last_name || ""}`
+          .trim()
+          ||
+          "Socio";
 
-          <div class="row">
 
-            <div>
-              <strong>${escapeHtml(name)}</strong>
+        return `
 
-              <div class="muted">
-                Pago: ${formatDate(payment.paid_at)}
+          <div class="list-item">
+
+            <div class="row">
+
+              <div>
+
+                <strong>
+                  ${escapeHtml(name)}
+                </strong>
+
+                <div class="muted">
+                  Pago:
+                  ${formatDate(
+                    payment.paid_at
+                  )}
+                </div>
+
+                ${
+                  payment.due_date
+                  ?
+                  `
+                    <div class="muted">
+                      Vencimiento:
+                      ${formatDate(
+                        payment.due_date
+                      )}
+                    </div>
+                  `
+                  :
+                  ""
+                }
+
               </div>
 
-              ${
-                payment.due_date
-                ?
-                `<div class="muted">
-                  Vencimiento: ${formatDate(payment.due_date)}
-                </div>`
-                :
-                ""
-              }
+
+              <strong>
+                ${formatMoney(
+                  payment.amount
+                )}
+              </strong>
 
             </div>
 
-            <strong>
-              ${formatMoney(payment.amount)}
-            </strong>
+
+            ${
+              payment.notes
+              ?
+              `
+                <div
+                  class="muted"
+                  style="margin-top:8px"
+                >
+                  ${escapeHtml(
+                    payment.notes
+                  )}
+                </div>
+              `
+              :
+              ""
+            }
 
           </div>
 
-          ${
-            payment.notes
-            ?
-            `<div class="muted" style="margin-top:8px">
-              ${escapeHtml(payment.notes)}
-            </div>`
-            :
-            ""
-          }
+        `;
 
-        </div>
-      `;
-
-    }).join("");
+      })
+      .join("");
 }
 
 
-/* =========================
+/* ==================================================
    CLASES
-========================= */
+================================================== */
 
 function formatTime(input){
 
   let value =
-    input.value.replace(/[^0-9]/g,"");
+    input.value
+      .replace(/[^0-9]/g,"");
+
 
   if(value.length > 4){
-    value=value.slice(0,4);
+
+    value =
+      value.slice(0,4);
+
   }
+
 
   if(value.length >= 3){
 
     value =
-      value.slice(0,2) + ":" + value.slice(2);
+      value.slice(0,2)
+      +
+      ":"
+      +
+      value.slice(2);
+
   }
+
 
   input.value=value;
 }
@@ -1380,23 +2230,53 @@ function formatTime(input){
 
 function validateTime(value){
 
-  return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value);
+  return /^([01]\d|2[0-3]):([0-5]\d)$/
+    .test(value);
+
 }
 
 
 async function addClass(){
 
   const weekday =
-    Number(document.getElementById("classWeekday").value);
+    Number(
+      document
+        .getElementById(
+          "classWeekday"
+        )
+        .value
+    );
+
 
   const start_time =
-    document.getElementById("classTime").value.trim();
+    document
+      .getElementById(
+        "classTime"
+      )
+      .value
+      .trim();
+
 
   const capacity =
-    Number(document.getElementById("classCapacity").value || 15);
+    Number(
+      document
+        .getElementById(
+          "classCapacity"
+        )
+        .value
+      ||
+      15
+    );
+
 
   const group_name =
-    document.getElementById("classGroup").value.trim();
+    document
+      .getElementById(
+        "classGroup"
+      )
+      .value
+      .trim();
+
 
   if(!validateTime(start_time)){
 
@@ -1409,16 +2289,20 @@ async function addClass(){
     return;
   }
 
-  const {error} =
-    await supabaseClient
-      .from("classes")
-      .insert({
-        box_id:currentBox.id,
-        weekday,
-        start_time,
-        capacity,
-        group_name
-      });
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("classes")
+    .insert({
+      box_id:currentBox.id,
+      weekday,
+      start_time,
+      capacity,
+      group_name
+    });
+
 
   if(error){
 
@@ -1431,15 +2315,34 @@ async function addClass(){
     return;
   }
 
+
   showMessage(
     "classMessage",
     "Clase creada correctamente.",
     "ok"
   );
 
-  document.getElementById("classTime").value="18:00";
-  document.getElementById("classCapacity").value="15";
-  document.getElementById("classGroup").value="";
+
+  document
+    .getElementById(
+      "classTime"
+    )
+    .value="18:00";
+
+
+  document
+    .getElementById(
+      "classCapacity"
+    )
+    .value="15";
+
+
+  document
+    .getElementById(
+      "classGroup"
+    )
+    .value="";
+
 
   await loadClasses();
 
@@ -1449,13 +2352,30 @@ async function addClass(){
 
 async function loadClasses(){
 
-  const {data,error} =
-    await supabaseClient
-      .from("classes")
-      .select("*")
-      .eq("box_id",currentBox.id)
-      .order("weekday",{ascending:true})
-      .order("start_time",{ascending:true});
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("classes")
+    .select("*")
+    .eq(
+      "box_id",
+      currentBox.id
+    )
+    .order(
+      "weekday",
+      {
+        ascending:true
+      }
+    )
+    .order(
+      "start_time",
+      {
+        ascending:true
+      }
+    );
+
 
   if(error){
 
@@ -1468,6 +2388,7 @@ async function loadClasses(){
     return;
   }
 
+
   classes=data || [];
 
   renderClasses();
@@ -1476,7 +2397,7 @@ async function loadClasses(){
 
 function weekdayName(day){
 
-  const names = [
+  const names=[
     "Domingo",
     "Lunes",
     "Martes",
@@ -1486,24 +2407,36 @@ function weekdayName(day){
     "Sábado"
   ];
 
-  return names[Number(day)] || "-";
+
+  return names[
+    Number(day)
+  ] || "-";
 }
 
 
 function cleanTime(time){
 
-  if(!time) return "";
+  if(!time){
+    return "";
+  }
 
-  return String(time).slice(0,5);
+  return String(time)
+    .slice(0,5);
 }
 
 
 function renderClasses(){
 
   const container =
-    document.getElementById("classesList");
+    document.getElementById(
+      "classesList"
+    );
 
-  if(!container) return;
+
+  if(!container){
+    return;
+  }
+
 
   if(!classes.length){
 
@@ -1513,57 +2446,98 @@ function renderClasses(){
     return;
   }
 
+
   container.innerHTML =
-    classes.map(c=>{
+    classes
+      .map(c=>{
 
-      return `
-        <div class="list-item">
+        return `
 
-          <div class="row">
+          <div class="list-item">
 
-            <div>
-              <div class="class-time">
-                ${escapeHtml(cleanTime(c.start_time))}
+            <div class="row">
+
+              <div>
+
+                <div class="class-time">
+                  ${escapeHtml(
+                    cleanTime(
+                      c.start_time
+                    )
+                  )}
+                </div>
+
+                <strong>
+                  ${escapeHtml(
+                    weekdayName(
+                      c.weekday
+                    )
+                  )}
+                </strong>
+
+                <div class="muted">
+                  ${escapeHtml(
+                    c.group_name ||
+                    "General"
+                  )}
+
+                  · Capacidad
+                  ${c.capacity || 15}
+                </div>
+
               </div>
 
-              <strong>
-                ${escapeHtml(weekdayName(c.weekday))}
-              </strong>
 
-              <div class="muted">
-                ${escapeHtml(c.group_name || "General")}
-                · Capacidad ${c.capacity || 15}
-              </div>
+              <button
+                class="small-btn"
+                onclick="
+                  deleteClass(
+                    '${c.id}'
+                  )
+                "
+              >
+                Eliminar
+              </button>
+
             </div>
-
-            <button
-              class="small-btn"
-              onclick="deleteClass('${c.id}')"
-            >
-              Eliminar
-            </button>
 
           </div>
 
-        </div>
-      `;
+        `;
 
-    }).join("");
+      })
+      .join("");
 }
 
 
 async function deleteClass(id){
 
-  if(!confirm("¿Eliminar esta clase?")){
+  if(
+    !confirm(
+      "¿Eliminar esta clase?"
+    )
+  ){
+
     return;
+
   }
 
-  const {error} =
-    await supabaseClient
-      .from("classes")
-      .delete()
-      .eq("id",id)
-      .eq("box_id",currentBox.id);
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("classes")
+    .delete()
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "box_id",
+      currentBox.id
+    );
+
 
   if(error){
 
@@ -1572,23 +2546,36 @@ async function deleteClass(id){
     return;
   }
 
+
   await loadClasses();
 
   updateDashboard();
 }
 
 
-/* =========================
+/* ==================================================
    WOD
-========================= */
+================================================== */
 
 async function saveWod(){
 
   const title =
-    document.getElementById("wodTitle").value.trim();
+    document
+      .getElementById(
+        "wodTitle"
+      )
+      .value
+      .trim();
+
 
   const description =
-    document.getElementById("wodDescription").value.trim();
+    document
+      .getElementById(
+        "wodDescription"
+      )
+      .value
+      .trim();
+
 
   if(!title){
 
@@ -1601,17 +2588,21 @@ async function saveWod(){
     return;
   }
 
-  const {error} =
-    await supabaseClient
-      .from("workouts")
-      .insert({
-        box_id:currentBox.id,
-        workout_date:today(),
-        title,
-        description,
-        created_by:currentUser.id,
-        status:"published"
-      });
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("workouts")
+    .insert({
+      box_id:currentBox.id,
+      workout_date:today(),
+      title,
+      description,
+      created_by:currentUser.id,
+      status:"published"
+    });
+
 
   if(error){
 
@@ -1624,14 +2615,27 @@ async function saveWod(){
     return;
   }
 
+
   showMessage(
     "wodMessage",
     "WOD publicado correctamente.",
     "ok"
   );
 
-  document.getElementById("wodTitle").value="";
-  document.getElementById("wodDescription").value="";
+
+  document
+    .getElementById(
+      "wodTitle"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "wodDescription"
+    )
+    .value="";
+
 
   await loadTodayWod();
 }
@@ -1639,16 +2643,34 @@ async function saveWod(){
 
 async function loadTodayWod(){
 
-  const {data,error} =
-    await supabaseClient
-      .from("workouts")
-      .select("*")
-      .eq("box_id",currentBox.id)
-      .eq("workout_date",today())
-      .eq("status","published")
-      .order("created_at",{ascending:false})
-      .limit(1)
-      .maybeSingle();
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("workouts")
+    .select("*")
+    .eq(
+      "box_id",
+      currentBox.id
+    )
+    .eq(
+      "workout_date",
+      today()
+    )
+    .eq(
+      "status",
+      "published"
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    )
+    .limit(1)
+    .maybeSingle();
+
 
   if(error){
 
@@ -1657,32 +2679,51 @@ async function loadTodayWod(){
     return;
   }
 
+
   const html =
     data
     ?
     `
+
       <div class="wod-box">
+
         <div class="wod-title">
-          ${escapeHtml(data.title)}
+          ${escapeHtml(
+            data.title
+          )}
         </div>
 
         <div class="wod-description">
-          ${escapeHtml(data.description || "")}
+          ${escapeHtml(
+            data.description || ""
+          )}
         </div>
+
       </div>
+
     `
     :
     '<div class="empty">Todavía no hay WOD publicado para hoy.</div>';
 
+
   const todayContainer =
-    document.getElementById("todayWod");
+    document.getElementById(
+      "todayWod"
+    );
+
 
   const dashboardContainer =
-    document.getElementById("dashboardWod");
+    document.getElementById(
+      "dashboardWod"
+    );
+
 
   if(todayContainer){
+
     todayContainer.innerHTML=html;
+
   }
+
 
   if(dashboardContainer){
 
@@ -1690,35 +2731,69 @@ async function loadTodayWod(){
       data
       ?
       `
-        <strong>${escapeHtml(data.title)}</strong>
-        <div class="muted" style="margin-top:6px">
-          ${escapeHtml(data.description || "")}
+        <strong>
+          ${escapeHtml(
+            data.title
+          )}
+        </strong>
+
+        <div
+          class="muted"
+          style="margin-top:6px"
+        >
+          ${escapeHtml(
+            data.description || ""
+          )}
         </div>
       `
       :
       '<span class="muted">No hay WOD publicado.</span>';
+
   }
+
 }
 
 
-/* =========================
+/* ==================================================
    CONFIGURACIÓN
-========================= */
+================================================== */
 
 async function loadConfig(){
 
-  if(!currentBox) return;
+  if(!currentBox){
+    return;
+  }
 
-  document.getElementById("configName").value =
+
+  document
+    .getElementById(
+      "configName"
+    )
+    .value =
     currentBox.name || "";
 
-  document.getElementById("configCity").value =
+
+  document
+    .getElementById(
+      "configCity"
+    )
+    .value =
     currentBox.city || "";
 
-  document.getElementById("configAddress").value =
+
+  document
+    .getElementById(
+      "configAddress"
+    )
+    .value =
     currentBox.address || "";
 
-  document.getElementById("configPhone").value =
+
+  document
+    .getElementById(
+      "configPhone"
+    )
+    .value =
     currentBox.phone || "";
 }
 
@@ -1726,16 +2801,40 @@ async function loadConfig(){
 async function saveConfig(){
 
   const name =
-    document.getElementById("configName").value.trim();
+    document
+      .getElementById(
+        "configName"
+      )
+      .value
+      .trim();
+
 
   const city =
-    document.getElementById("configCity").value.trim();
+    document
+      .getElementById(
+        "configCity"
+      )
+      .value
+      .trim();
+
 
   const address =
-    document.getElementById("configAddress").value.trim();
+    document
+      .getElementById(
+        "configAddress"
+      )
+      .value
+      .trim();
+
 
   const phone =
-    document.getElementById("configPhone").value.trim();
+    document
+      .getElementById(
+        "configPhone"
+      )
+      .value
+      .trim();
+
 
   if(!name){
 
@@ -1748,16 +2847,23 @@ async function saveConfig(){
     return;
   }
 
-  const {error} =
-    await supabaseClient
-      .from("boxes")
-      .update({
-        name,
-        city,
-        address,
-        phone
-      })
-      .eq("id",currentBox.id);
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("boxes")
+    .update({
+      name,
+      city,
+      address,
+      phone
+    })
+    .eq(
+      "id",
+      currentBox.id
+    );
+
 
   if(error){
 
@@ -1770,12 +2876,19 @@ async function saveConfig(){
     return;
   }
 
+
   currentBox.name=name;
   currentBox.city=city;
   currentBox.address=address;
   currentBox.phone=phone;
 
-  document.getElementById("boxNameHeader").textContent=name;
+
+  document
+    .getElementById(
+      "boxNameHeader"
+    )
+    .textContent=name;
+
 
   showMessage(
     "configMessage",
@@ -1785,54 +2898,87 @@ async function saveConfig(){
 }
 
 
-/* =========================
+/* ==================================================
    DASHBOARD
-========================= */
+================================================== */
 
-async function updateDashboard(){
+function updateDashboard(){
 
   const total =
     members.length;
 
+
   const active =
-    members.filter(m=>m.status==="active").length;
-
-  document.getElementById("totalMembers").textContent =
-    total;
-
-  document.getElementById("activeMembers").textContent =
-    active;
-
-  document.getElementById("totalClasses").textContent =
-    classes.length;
-
-  /* pagos pendientes */
-  const currentDate=today();
-
-  const pending =
-    payments.filter(p=>
-      p.due_date &&
-      p.due_date < currentDate &&
-      p.status !== "paid"
+    members.filter(
+      member =>
+        member.status === "active"
     ).length;
 
-  document.getElementById("pendingPayments").textContent =
-    pending;
+
+  document
+    .getElementById(
+      "totalMembers"
+    )
+    .textContent=total;
+
+
+  document
+    .getElementById(
+      "activeMembers"
+    )
+    .textContent=active;
+
+
+  document
+    .getElementById(
+      "totalClasses"
+    )
+    .textContent=
+    classes.length;
+
+
+  const currentDate =
+    today();
+
+
+  const pending =
+    payments.filter(
+      payment =>
+        payment.due_date &&
+        payment.due_date < currentDate &&
+        payment.status !== "paid"
+    ).length;
+
+
+  document
+    .getElementById(
+      "pendingPayments"
+    )
+    .textContent=pending;
 }
 
 
-/* =========================
-   SESIÓN AUTOMÁTICA
-========================= */
+/* ==================================================
+   SESIÓN
+================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-  async (event,session)=>{
+  async (
+    event,
+    session
+  )=>{
 
-    if(session && !currentUser){
+    if(
+      session &&
+      !currentUser
+    ){
 
-      setTimeout(()=>{
-        initializeApp();
-      },0);
+      setTimeout(
+        ()=>{
+          initializeApp();
+        },
+        0
+      );
 
     }
 
@@ -1840,11 +2986,19 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
+/* ==================================================
+   ARRANQUE
+================================================== */
+
 (async function(){
 
   const {
-    data:{session}
-  } = await supabaseClient.auth.getSession();
+    data:{
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
 
   if(session){
 
