@@ -1,13 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WODLY</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WODLY</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #111;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 4px;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #aaa;
+    }
+
+    main {
+      padding: 25px 18px 100px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #aaa;
+    }
+
+    .card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+      font-size: 21px;
+    }
+
+    .wod {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .details {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 18px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: #111;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #181818;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-around;
+      padding: 14px 5px;
+    }
+
+    nav div {
+      text-align: center;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    nav strong {
+      display: block;
+      color: white;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>WODLY</h1>
-    <h2>CrossFit</h2>
-    <p>Gestión inteligente para tu Box.</p>
+
+  <header>
+    <div class="logo">WODLY</div>
+    <div class="subtitle">CROSSFIT</div>
+  </header>
+
+  <main>
+
+    <section class="welcome">
+      <h1>Bienvenido a WODLY</h1>
+      <p>Gestioná tu box. Entrená mejor.</p>
+    </section>
+
+    <section class="card">
+      <h2>WOD de hoy</h2>
+
+      <div class="wod">AMRAP 15'</div>
+
+      <div class="details">
+        10 Pull Ups<br>
+        15 Push Ups<br>
+        20 Air Squats
+      </div>
+
+      <button onclick="alert('¡WOD iniciado!')">
+        INICIAR WOD
+      </button>
+    </section>
+
+    <section class="card">
+      <h2>Mi entrenamiento</h2>
+      <div class="details">
+        Próximamente podrás registrar tus resultados,
+        consultar tus marcas y seguir tu progreso.
+      </div>
+    </section>
+
+  </main>
+
+  <nav>
+    <div>
+      <strong>⌂</strong>
+      Inicio
+    </div>
+
+    <div>
+      <strong>⚡</strong>
+      WOD
+    </div>
+
+    <div>
+      <strong>♟</strong>
+      Atletas
+    </div>
+
+    <div>
+      <strong>☰</strong>
+      Más
+    </div>
+  </nav>
+
 </body>
 </html>
