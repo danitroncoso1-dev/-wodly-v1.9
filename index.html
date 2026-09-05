@@ -3739,131 +3739,168 @@ supabaseClient.auth.onAuthStateChange(
 
   function renderAttendanceMembers() {
 
-    const list =
-      document.getElementById(
-        "attendanceList"
-      );
+  const list =
+    document.getElementById("attendanceList");
 
-    if (!list) return;
+  if (!list) return;
 
-    if (
-      !attendanceMembers ||
-      attendanceMembers.length === 0
-    ) {
+  if (
+    !attendanceMembers ||
+    attendanceMembers.length === 0
+  ) {
 
-      list.innerHTML =
-        `<div style="
-          padding:20px;
-          text-align:center;
-          opacity:.7;
-        ">
-          No hay socios para esta clase.
-        </div>`;
+    list.innerHTML = `
+      <div style="
+        padding:20px;
+        text-align:center;
+        opacity:.7;
+      ">
+        No hay socios para esta clase.
+      </div>
+    `;
 
-      return;
-    }
-
-    list.innerHTML =
-      attendanceMembers.map(
-        function (member) {
-
-          const id =
-            String(member.user_id);
-
-          const name =
-            (
-              member.first_name +
-              " " +
-              member.last_name
-            ).trim() ||
-            "Socio";
-
-          const status =
-            attendanceState[id] || "";
-
-          const presentStyle =
-            status === "present"
-              ? "font-weight:bold;"
-              : "";
-
-          const absentStyle =
-            status === "absent"
-              ? "font-weight:bold;"
-              : "";
-
-          return `
-
-            <div style="
-              display:flex;
-              align-items:center;
-              justify-content:space-between;
-              gap:10px;
-              padding:12px;
-              margin-bottom:8px;
-              border:1px solid rgba(128,128,128,.25);
-              border-radius:10px;
-            ">
-
-              <div style="
-                min-width:0;
-                flex:1;
-              ">
-
-                <strong>
-                  ${escAttendance(name)}
-                </strong>
-
-                ${
-                  member.group_name
-                    ? `
-                      <div style="
-                        font-size:12px;
-                        opacity:.65;
-                      ">
-                        ${escAttendance(
-                          member.group_name
-                        )}
-                      </div>
-                    `
-                    : ""
-                }
-
-              </div>
-
-              <div style="
-                display:flex;
-                gap:6px;
-                flex-shrink:0;
-              ">
-
-                <button
-                  type="button"
-                  onclick="setAttendanceStatus('${escAttendance(id)}','present')"
-                  style="${presentStyle}"
-                >
-                  ✅
-                </button>
-
-                <button
-                  type="button"
-                  onclick="setAttendanceStatus('${escAttendance(id)}','absent')"
-                  style="${absentStyle}"
-                >
-                  ❌
-                </button>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      ).join("");
+    return;
   }
 
-  /* ---------- MARCAR UNO ---------- */
+  list.innerHTML = "";
 
+  attendanceMembers.forEach(function(member) {
+
+    const athleteId =
+      String(member.user_id);
+
+    const name =
+      (
+        member.first_name +
+        " " +
+        member.last_name
+      ).trim() || "Socio";
+
+    const status =
+      attendanceState[athleteId] || "";
+
+    const row =
+      document.createElement("div");
+
+    row.style.cssText = `
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px;
+      margin-bottom:8px;
+      border:1px solid rgba(128,128,128,.25);
+      border-radius:10px;
+    `;
+
+    const info =
+      document.createElement("div");
+
+    info.style.cssText = `
+      min-width:0;
+      flex:1;
+    `;
+
+    const nameElement =
+      document.createElement("strong");
+
+    nameElement.textContent = name;
+
+    info.appendChild(nameElement);
+
+    if (member.group_name) {
+
+      const group =
+        document.createElement("div");
+
+      group.style.cssText = `
+        font-size:12px;
+        opacity:.65;
+      `;
+
+      group.textContent =
+        member.group_name;
+
+      info.appendChild(group);
+    }
+
+    const buttons =
+      document.createElement("div");
+
+    buttons.style.cssText = `
+      display:flex;
+      gap:6px;
+      flex-shrink:0;
+    `;
+
+    const present =
+      document.createElement("button");
+
+    present.type = "button";
+    present.textContent = "✅";
+
+    present.style.cssText = `
+      padding:8px 12px;
+      cursor:pointer;
+      font-size:18px;
+      ${status === "present"
+        ? "font-weight:bold; transform:scale(1.1);"
+        : ""}
+    `;
+
+    present.addEventListener(
+      "click",
+      function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        attendanceState[athleteId] =
+          "present";
+
+        renderAttendanceMembers();
+      }
+    );
+
+    const absent =
+      document.createElement("button");
+
+    absent.type = "button";
+    absent.textContent = "❌";
+
+    absent.style.cssText = `
+      padding:8px 12px;
+      cursor:pointer;
+      font-size:18px;
+      ${status === "absent"
+        ? "font-weight:bold; transform:scale(1.1);"
+        : ""}
+    `;
+
+    absent.addEventListener(
+      "click",
+      function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        attendanceState[athleteId] =
+          "absent";
+
+        renderAttendanceMembers();
+      }
+    );
+
+    buttons.appendChild(present);
+    buttons.appendChild(absent);
+
+    row.appendChild(info);
+    row.appendChild(buttons);
+
+    list.appendChild(row);
+
+  });
+}
   window.setAttendanceStatus =
     function (
       athleteId,
