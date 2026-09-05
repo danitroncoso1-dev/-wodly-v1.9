@@ -1,191 +1,255 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WODLY</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WODLY</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      background: #111;
-      color: white;
-      min-height: 100vh;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #0d0d0d;
+  color: white;
+  min-height: 100vh;
+}
 
-    header {
-      padding: 25px 20px;
-      text-align: center;
-      border-bottom: 1px solid #333;
-    }
+header {
+  padding: 28px 20px 20px;
+  text-align: center;
+  border-bottom: 1px solid #252525;
+}
 
-    .logo {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: 4px;
-    }
+.logo {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 5px;
+}
 
-    .subtitle {
-      margin-top: 5px;
-      font-size: 13px;
-      letter-spacing: 3px;
-      color: #aaa;
-    }
+.crossfit {
+  font-size: 12px;
+  letter-spacing: 5px;
+  color: #999;
+  margin-top: 5px;
+}
 
-    main {
-      padding: 25px 18px 100px;
-      max-width: 600px;
-      margin: auto;
-    }
+main {
+  max-width: 650px;
+  margin: auto;
+  padding: 24px 18px 100px;
+}
 
-    .welcome {
-      margin-bottom: 25px;
-    }
+.welcome {
+  margin-bottom: 24px;
+}
 
-    .welcome h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
+.welcome p {
+  color: #999;
+  margin-top: 7px;
+}
 
-    .welcome p {
-      color: #aaa;
-    }
+.section-title {
+  font-size: 14px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
 
-    .card {
-      background: #1c1c1c;
-      border: 1px solid #333;
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 18px;
-    }
+.wod-card {
+  background: #191919;
+  border: 1px solid #303030;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
 
-    .card h2 {
-      margin-bottom: 10px;
-      font-size: 21px;
-    }
+.wod-name {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
 
-    .wod {
-      font-size: 32px;
-      font-weight: bold;
-      margin: 12px 0;
-    }
+.exercise {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #292929;
+}
 
-    .details {
-      color: #aaa;
-      line-height: 1.6;
-    }
+.exercise:last-child {
+  border-bottom: none;
+}
 
-    button {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 18px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      background: white;
-      color: #111;
-    }
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+}
 
-    button:hover {
-      opacity: 0.85;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
 
-    nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #181818;
-      border-top: 1px solid #333;
-      display: flex;
-      justify-content: space-around;
-      padding: 14px 5px;
-    }
+.menu-card {
+  background: #191919;
+  border: 1px solid #303030;
+  border-radius: 18px;
+  padding: 20px;
+  min-height: 120px;
+}
 
-    nav div {
-      text-align: center;
-      color: #aaa;
-      font-size: 12px;
-    }
+.menu-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
 
-    nav strong {
-      display: block;
-      color: white;
-      font-size: 20px;
-      margin-bottom: 3px;
-    }
-  </style>
+.menu-card h3 {
+  font-size: 17px;
+}
+
+.menu-card p {
+  color: #888;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #151515;
+  border-top: 1px solid #292929;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-item {
+  text-align: center;
+  color: #888;
+  font-size: 11px;
+}
+
+.nav-item.active {
+  color: white;
+}
+
+.nav-icon {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 3px;
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">WODLY</div>
-    <div class="subtitle">CROSSFIT</div>
-  </header>
+<header>
+  <div class="logo">WODLY</div>
+  <div class="crossfit">CROSSFIT</div>
+</header>
 
-  <main>
+<main>
 
-    <section class="welcome">
-      <h1>Bienvenido a WODLY</h1>
-      <p>Gestioná tu box. Entrená mejor.</p>
-    </section>
+  <section class="welcome">
+    <h1>Hola 👋</h1>
+    <p>Todo lo que necesitás para tu box.</p>
+  </section>
 
-    <section class="card">
-      <h2>WOD de hoy</h2>
+  <div class="section-title">WOD de hoy</div>
 
-      <div class="wod">AMRAP 15'</div>
+  <section class="wod-card">
+    <div class="wod-name">AMRAP 15'</div>
 
-      <div class="details">
-        10 Pull Ups<br>
-        15 Push Ups<br>
-        20 Air Squats
-      </div>
-
-      <button onclick="alert('¡WOD iniciado!')">
-        INICIAR WOD
-      </button>
-    </section>
-
-    <section class="card">
-      <h2>Mi entrenamiento</h2>
-      <div class="details">
-        Próximamente podrás registrar tus resultados,
-        consultar tus marcas y seguir tu progreso.
-      </div>
-    </section>
-
-  </main>
-
-  <nav>
-    <div>
-      <strong>⌂</strong>
-      Inicio
+    <div class="exercise">
+      <span>Pull Ups</span>
+      <strong>10</strong>
     </div>
 
-    <div>
-      <strong>⚡</strong>
-      WOD
+    <div class="exercise">
+      <span>Push Ups</span>
+      <strong>15</strong>
     </div>
 
-    <div>
-      <strong>♟</strong>
-      Atletas
+    <div class="exercise">
+      <span>Air Squats</span>
+      <strong>20</strong>
     </div>
 
-    <div>
-      <strong>☰</strong>
-      Más
+    <button onclick="alert('WOD iniciado')">
+      INICIAR WOD
+    </button>
+  </section>
+
+  <div class="section-title">Gestión del box</div>
+
+  <section class="grid">
+
+    <div class="menu-card" onclick="alert('Módulo Atletas')">
+      <div class="menu-icon">👥</div>
+      <h3>Atletas</h3>
+      <p>Gestionar alumnos</p>
     </div>
-  </nav>
+
+    <div class="menu-card" onclick="alert('Módulo Clases')">
+      <div class="menu-icon">📅</div>
+      <h3>Clases</h3>
+      <p>Horarios y cupos</p>
+    </div>
+
+    <div class="menu-card" onclick="alert('Módulo Resultados')">
+      <div class="menu-icon">📊</div>
+      <h3>Resultados</h3>
+      <p>Marcas y PRs</p>
+    </div>
+
+    <div class="menu-card" onclick="alert('Módulo Membresías')">
+      <div class="menu-icon">💰</div>
+      <h3>Membresías</h3>
+      <p>Pagos y vencimientos</p>
+    </div>
+
+  </section>
+
+</main>
+
+<nav>
+  <div class="nav-item active">
+    <span class="nav-icon">⌂</span>
+    Inicio
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">⚡</span>
+    WOD
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">👥</span>
+    Atletas
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">☰</span>
+    Más
+  </div>
+</nav>
 
 </body>
 </html>
