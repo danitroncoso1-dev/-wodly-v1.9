@@ -3,857 +3,1858 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WODLY v3</title>
+<title>WODLY</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
-  background:#101010;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#0b0b0f;
   color:#fff;
   min-height:100vh;
 }
-header{
-  padding:18px;
-  background:#181818;
-  border-bottom:1px solid #303030;
-  text-align:center;
-  position:sticky;
-  top:0;
-  z-index:10;
+
+button,input,select,textarea{
+  font:inherit;
 }
-.logo{
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:4px;
-}
-.subtitle{
-  color:#888;
-  font-size:11px;
-  margin-top:4px;
-  letter-spacing:2px;
-}
-main{
-  max-width:650px;
-  margin:auto;
-  padding:20px;
-  padding-bottom:100px;
-}
-.screen{display:none}
-.screen.active{display:block}
-h1{
-  font-size:28px;
-  margin-bottom:7px;
-}
-.description{
-  color:#999;
-  margin-bottom:20px;
-}
-.card{
-  background:#1c1c1c;
-  border:1px solid #303030;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:15px;
-}
-.card h2{
-  font-size:19px;
-  margin-bottom:14px;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-.stat{
-  background:#252525;
-  padding:14px 5px;
-  border-radius:12px;
-  text-align:center;
-}
-.stat strong{
-  display:block;
-  font-size:24px;
-}
-.stat span{
-  color:#999;
-  font-size:10px;
-}
-.wod{
-  border-left:5px solid #fff;
-}
-.wod-name{
-  font-size:23px;
-  font-weight:bold;
-  margin-bottom:9px;
-}
-.wod p{
-  color:#ccc;
-  line-height:1.7;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
+
 button{
-  border:0;
-  border-radius:11px;
-  padding:14px;
-  background:#292929;
-  color:white;
-  font-size:14px;
-  font-weight:bold;
   cursor:pointer;
 }
-button:active{
-  transform:scale(.98);
+
+.hidden{
+  display:none!important;
 }
-.primary{
-  background:white;
-  color:#111;
+
+.app{
+  max-width:700px;
+  margin:auto;
+  padding-bottom:40px;
 }
-input,select{
-  width:100%;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:10px;
-  border:1px solid #444;
-  background:#252525;
-  color:white;
-  font-size:15px;
-}
-.search{
-  margin-bottom:15px;
-}
-.member{
-  background:#252525;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:9px;
-}
-.member-top{
+
+header{
+  padding:22px 18px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
-}
-.member-name{
-  font-weight:bold;
-  font-size:16px;
-}
-.member-info{
-  color:#999;
-  font-size:12px;
-  margin-top:6px;
-  line-height:1.6;
-}
-.actions{
-  display:flex;
-  gap:7px;
-  margin-top:12px;
-}
-.actions button{
-  flex:1;
-  padding:10px;
-  font-size:12px;
-}
-.badge{
-  padding:5px 8px;
-  border-radius:8px;
-  background:#333;
-  font-size:10px;
-  white-space:nowrap;
-}
-.active-badge{
-  background:#234d2c;
-}
-.inactive-badge{
-  background:#4b2929;
-}
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#181818;
-  border-top:1px solid #333;
-  display:flex;
-  justify-content:space-around;
-  padding:7px 3px;
+  border-bottom:1px solid #24242b;
+  background:#111116;
+  position:sticky;
+  top:0;
   z-index:20;
 }
-.nav-btn{
-  background:none;
-  padding:6px 4px;
-  font-size:10px;
-  color:#888;
+
+.logo{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:2px;
 }
-.nav-btn.active{
-  color:white;
+
+.logo span{
+  color:#ff5a1f;
 }
-.empty{
-  color:#777;
+
+.box-name{
+  font-size:13px;
+  color:#aaa;
+  margin-top:3px;
+}
+
+.logout{
+  background:#222229;
+  color:#fff;
+  border:0;
+  border-radius:10px;
+  padding:9px 12px;
+}
+
+nav{
+  display:flex;
+  overflow-x:auto;
+  gap:7px;
+  padding:12px;
+  background:#111116;
+  border-bottom:1px solid #24242b;
+}
+
+nav button{
+  white-space:nowrap;
+  background:#1c1c23;
+  border:0;
+  color:#aaa;
+  padding:10px 14px;
+  border-radius:10px;
+}
+
+nav button.active{
+  background:#ff5a1f;
+  color:#fff;
+}
+
+main{
+  padding:18px;
+}
+
+.card{
+  background:#15151b;
+  border:1px solid #25252d;
+  border-radius:16px;
+  padding:17px;
+  margin-bottom:15px;
+}
+
+h2{
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+h3{
+  font-size:17px;
+  margin-bottom:10px;
+}
+
+.muted{
+  color:#999;
+  font-size:13px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.stat{
+  background:#15151b;
+  border:1px solid #25252d;
+  border-radius:15px;
+  padding:16px;
+}
+
+.stat-number{
+  font-size:29px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.stat-label{
+  color:#999;
+  font-size:12px;
+}
+
+label{
+  display:block;
+  color:#aaa;
+  font-size:13px;
+  margin-bottom:6px;
+  margin-top:12px;
+}
+
+input,select,textarea{
+  width:100%;
+  background:#0d0d12;
+  color:#fff;
+  border:1px solid #303039;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:#ff5a1f;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  margin-top:14px;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:#ff5a1f;
+  color:#fff;
+}
+
+.btn-secondary{
+  background:#292930;
+  color:#fff;
+}
+
+.btn-danger{
+  background:#8d2020;
+  color:#fff;
+}
+
+.list-item{
+  background:#101015;
+  border:1px solid #292931;
+  border-radius:12px;
+  padding:13px;
+  margin-top:9px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:8px;
+  font-size:11px;
+  background:#26262e;
+  color:#ccc;
+}
+
+.badge-green{
+  background:#173b29;
+  color:#6ee7a4;
+}
+
+.badge-red{
+  background:#421c1c;
+  color:#ff8585;
+}
+
+.small-btn{
+  border:0;
+  border-radius:8px;
+  padding:7px 9px;
+  background:#292930;
+  color:#fff;
+  font-size:12px;
+}
+
+.login{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:#09090c;
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:#15151b;
+  border:1px solid #292931;
+  border-radius:20px;
+  padding:25px;
+}
+
+.login-logo{
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:3px;
   text-align:center;
-  padding:15px 5px;
+  margin-bottom:8px;
 }
-footer{
+
+.login-logo span{
+  color:#ff5a1f;
+}
+
+.login-sub{
+  text-align:center;
+  color:#888;
+  margin-bottom:22px;
+}
+
+.message{
+  margin-top:12px;
+  padding:11px;
+  border-radius:9px;
+  font-size:13px;
+  display:none;
+}
+
+.message.ok{
+  display:block;
+  background:#173b29;
+  color:#72e7a5;
+}
+
+.message.error{
+  display:block;
+  background:#421c1c;
+  color:#ff9292;
+}
+
+.empty{
+  text-align:center;
+  padding:22px;
+  color:#777;
+}
+
+.wod-box{
+  border-left:4px solid #ff5a1f;
+}
+
+.wod-title{
+  font-size:23px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.wod-description{
+  color:#ccc;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+.class-time{
+  font-size:20px;
+  font-weight:800;
+}
+
+.footer{
   text-align:center;
   color:#555;
   font-size:11px;
-  margin-top:25px;
+  padding:25px;
 }
 </style>
 </head>
+
 <body>
-<header>
-<div class="logo">WODLY</div>
-<div class="subtitle">CROSSFIT MANAGEMENT</div>
-</header>
-<main>
-<!-- INICIO -->
-<section id="inicio" class="screen active">
-<h1>Dashboard</h1>
-<p class="description">Resumen de tu box</p>
-<div class="stats">
-<div class="stat">
-<strong id="totalSocios">0</strong>
-<span>SOCIOS</span>
-</div>
-<div class="stat">
-<strong>4</strong>
-<span>CLASES HOY</span>
-</div>
-<div class="stat">
-<strong id="pagosPendientes">0</strong>
-<span>PENDIENTES</span>
-</div>
-</div>
-<br>
-<div class="card wod">
-<h2>🔥 WOD DEL DÍA</h2>
-<div class="wod-name">AMRAP 15'</div>
-<p>
-10 Burpees<br>
-15 Kettlebell Swings<br>
-20 Air Squats
-</p>
-</div>
-<div class="card">
-<h2>Accesos rápidos</h2>
-<div class="grid">
-<button onclick="mostrar('socios')">
-👥 Socios
-</button>
-<button onclick="mostrar('pagos')">
-💳 Pagos
-</button>
-<button onclick="mostrar('clases')">
-📅 Clases
-<!-- CLASES -->
-<section id="clases" class="section">
 
-<div class="panel">
-<h2>Clases</h2>
-<div id="classesList"></div>
-</div>
+<!-- LOGIN -->
+<section id="loginScreen" class="login">
+  <div class="login-box">
 
-<div class="panel">
-<h2>Nueva clase</h2>
+    <div class="login-logo">WOD<span>LY</span></div>
+    <div class="login-sub">Gestión inteligente para tu box</div>
 
-<select id="classDay">
-<option value="1">Lunes</option>
-<option value="2">Martes</option>
-<option value="3">Miércoles</option>
-<option value="4">Jueves</option>
-<option value="5">Viernes</option>
-<option value="6">Sábado</option>
-<option value="0">Domingo</option>
-</select>
+    <label>Email</label>
+    <input id="loginEmail" type="email" placeholder="tu@email.com">
 
-<label>Hora</label>
-<input
-  id="classTime"
-  type="text"
-  inputmode="numeric"
-  placeholder="18:00"
-  value="18:00"
-  maxlength="5"
->
+    <label>Contraseña</label>
+    <input id="loginPassword" type="password" placeholder="••••••••">
 
-<label>Capacidad</label>
-<input
-  id="classCapacity"
-  type="number"
-  inputmode="numeric"
-  value="15"
-  placeholder="15"
->
+    <button class="btn btn-primary" onclick="login()">INGRESAR</button>
 
-<label>Grupo</label>
-<input
-  id="classGroup"
-  type="text"
-  placeholder="General"
->
-
-<button class="primary" onclick="addClass()">
-CREAR CLASE
-</button>
-
-<div id="classMessage" class="small"></div>
-
-</div>
-
-</section>
-🏋️ WOD
-</button>
-</div>
-</div>
-</section>
-<!-- SOCIOS -->
-<section id="socios" class="screen">
-<h1>Socios</h1>
-<p class="description">
-Administración de miembros
-</p>
-<div class="card">
-<h2>➕ Nuevo socio</h2>
-<input id="nombreSocio"
-placeholder="Nombre y apellido">
-<input id="telefonoSocio"
-placeholder="Teléfono">
-<select id="estadoSocio">
-<option value="Activo">
-Activo
-</option>
-<option value="Inactivo">
-Inactivo
-</option>
-</select>
-<button class="primary"
-onclick="agregarSocio()">
-Guardar socio
-</button>
-</div>
-<div class="card">
-<h2>👥 Mis socios</h2>
-<input
-class="search"
-id="buscarSocio"
-placeholder="🔎 Buscar socio..."
-oninput="mostrarSocios()">
-<div id="listaSocios"></div>
-</div>
-</section>
-<!-- PAGOS -->
-<section id="pagos" class="screen">
-<h1>Pagos</h1>
-<p class="description">
-Control de cuotas
-</p>
-<div class="card">
-<h2>💳 Registrar pago</h2>
-<input
-id="pagoNombre"
-placeholder="Nombre del socio">
-<input
-id="pagoMonto"
-type="number"
-placeholder="Monto">
-<select id="pagoEstado">
-<option>Pagado</option>
-<option>Pendiente</option>
-</select>
-<button
-class="primary"
-onclick="registrarPago()">
-Registrar pago
-</button>
-</div>
-<div class="card">
-<h2>Movimientos</h2>
-<div id="listaPagos"></div>
-</div>
-</section>
-<!-- CLASES -->
-<section id="clases" class="screen">
-<h1>Clases</h1>
-<p class="description">
-Agenda del box
-</p>
-<div class="card">
-<h2>📅 Horarios de hoy</h2>
-<div class="member">
-<div class="member-top">
-<strong>08:00</strong>
-<span class="badge">0 / 15</span>
-</div>
-<div class="member-info">CrossFit</div>
-</div>
-<div class="member">
-<div class="member-top">
-<strong>12:00</strong>
-<span class="badge">0 / 15</span>
-</div>
-<div class="member-info">CrossFit</div>
-</div>
-<div class="member">
-<div class="member-top">
-<strong>18:00</strong>
-<span class="badge">0 / 15</span>
-</div>
-<div class="member-info">CrossFit</div>
-</div>
-<div class="member">
-<div class="member-top">
-<strong>20:00</strong>
-<span class="badge">0 / 15</span>
-</div>
-<div class="member-info">CrossFit</div>
-</div>
-</div>
-</section>
-<!-- WOD -->
-<section id="wod" class="screen">
-<h1>WOD</h1>
-<p class="description">
-Entrenamiento del día
-</p>
-<div class="card wod">
-<h2>🔥 AMRAP 15'</h2>
-<p style="color:#ccc;line-height:1.8">
-10 Burpees<br>
-15 Kettlebell Swings<br>
-20 Air Squats
-</p>
-<br>
-<button
-class="primary"
-onclick="editarWod()">
-✏️ Editar WOD
-</button>
-</div>
-</section>
-<!-- ESTADISTICAS -->
-<section id="estadisticas" class="screen">
-<h1>Estadísticas</h1>
-<p class="description">
-Información del box
-</p>
-<div class="card">
-<h2>📊 Resumen</h2>
-<div class="stats">
-<div class="stat">
-<strong id="estadisticaSocios">0</strong>
-<span>SOCIOS</span>
-</div>
-<div class="stat">
-<strong id="estadisticaActivos">0</strong>
-<span>ACTIVOS</span>
-</div>
-<div class="stat">
-<strong id="estadisticaInactivos">0</strong>
-<span>INACTIVOS</span>
-</div>
-</div>
-</div>
-</section>
-<!-- CONFIGURACION -->
-<section id="configuracion" class="screen">
-<h1>Configuración</h1>
-<p class="description">
-Datos del box
-</p>
-<div class="card">
-<h2>⚙️ Información</h2>
-<input placeholder="Nombre del Box">
-<input placeholder="Dirección">
-<input placeholder="Teléfono">
-<button
-class="primary"
-onclick="alert('Configuración guardada')">
-Guardar
-</button>
-</div>
-</section>
-<footer>
-WODLY © 2026 · CrossFit Management
-</footer>
-</main>
-<!-- MENU -->
-<nav class="bottom-nav">
-<button class="nav-btn active"
-onclick="mostrar('inicio')">
-🏠<br>Inicio
-</button>
-<button class="nav-btn"
-onclick="mostrar('socios')">
-👥<br>Socios
-</button>
-<button class="nav-btn"
-onclick="mostrar('clases')">
-📅<br>Clases
-</button>
-<button class="nav-btn"
-onclick="mostrar('pagos')">
-💳<br>Pagos
-</button>
-<button class="nav-btn"
-onclick="mostrar('estadisticas')">
-📊<br>Stats
-</button>
-</nav>
-<script>
-let socios =
-JSON.parse(localStorage.getItem("wodly_socios")) || [];
-let pagos =
-JSON.parse(localStorage.getItem("wodly_pagos")) || [];
-function mostrar(id){
-document
-.querySelectorAll(".screen")
-.forEach(s=>{
-s.classList.remove("active");
-});
-document
-.getElementById(id)
-.classList.add("active");
-window.scrollTo(0,0);
-actualizar();
-}
-function agregarSocio(){
-const nombre =
-document
-.getElementById("nombreSocio")
-.value.trim();
-const telefono =
-document
-.getElementById("telefonoSocio")
-.value.trim();
-const estado =
-document
-.getElementById("estadoSocio")
-.value;
-if(!nombre){
-alert("Ingresá el nombre del socio");
-return;
-}
-const fecha =
-new Date().toLocaleDateString("es-AR");
-socios.push({
-id:Date.now(),
-nombre:nombre,
-telefono:telefono,
-estado:estado,
-fecha:fecha
-});
-localStorage.setItem(
-"wodly_socios",
-JSON.stringify(socios)
-);
-document
-.getElementById("nombreSocio")
-.value="";
-document
-.getElementById("telefonoSocio")
-.value="";
-actualizar();
-alert("✅ Socio agregado correctamente");
-}
-function eliminarSocio(id){
-if(!confirm("¿Querés eliminar este socio?")){
-return;
-}
-socios =
-socios.filter(s=>s.id!==id);
-localStorage.setItem(
-"wodly_socios",
-JSON.stringify(socios)
-);
-actualizar();
-}
-function cambiarEstado(id){
-const socio =
-socios.find(s=>s.id===id);
-if(!socio)return;
-socio.estado =
-socio.estado==="Activo"
-? "Inactivo"
-: "Activo";
-localStorage.setItem(
-"wodly_socios",
-JSON.stringify(socios)
-);
-actualizar();
-}
-function mostrarSocios(){
-const lista =
-document.getElementById("listaSocios");
-const busqueda =
-(document.getElementById("buscarSocio")?.value || "")
-.toLowerCase();
-const filtrados =
-socios.filter(s=>
-s.nombre.toLowerCase().includes(busqueda)
-);
-if(filtrados.length===0){
-lista.innerHTML =
-'<div class="empty">No hay socios para mostrar.</div>';
-return;
-}
-lista.innerHTML="";
-filtrados.forEach(s=>{
-const clase =
-s.estado==="Activo"
-? "active-badge"
-: "inactive-badge";
-lista.innerHTML += `
-<div class="member">
-<div class="member-top">
-<div class="member-name">
-${s.nombre}
-</div>
-<span class="badge ${clase}">
-${s.estado}
-</span>
-</div>
-<div class="member-info">
-📱 ${s.telefono || "Sin teléfono"}<br>
-📅 Alta: ${s.fecha}
-</div>
-<div class="actions">
-<button
-onclick="cambiarEstado(${s.id})">
-${s.estado==="Activo"
-? "🔴 Desactivar"
-: "🟢 Activar"}
-</button>
-<button
-onclick="eliminarSocio(${s.id})">
-🗑️ Eliminar
-</button>
-</div>
-</div>
-`;
-});
-}
-function registrarPago(){
-const nombre =
-document
-.getElementById("pagoNombre")
-.value.trim();
-const monto =
-document
-.getElementById("pagoMonto")
-.value;
-const estado =
-document
-.getElementById("pagoEstado")
-.value;
-if(!nombre || !monto){
-alert("Completá los datos");
-return;
-}
-pagos.push({
-id:Date.now(),
-nombre:nombre,
-monto:monto,
-estado:estado,
-fecha:new Date().toLocaleDateString("es-AR")
-});
-localStorage.setItem(
-"wodly_pagos",
-JSON.stringify(pagos)
-);
-document
-.getElementById("pagoNombre")
-.value="";
-document
-.getElementById("pagoMonto")
-.value="";
-actualizar();
-alert("✅ Movimiento registrado");
-}
-function mostrarPagos(){
-const lista =
-document.getElementById("listaPagos");
-if(pagos.length===0){
-lista.innerHTML =
-'<div class="empty">No hay movimientos.</div>';
-return;
-}
-lista.innerHTML="";
-pagos.slice().reverse().forEach(p=>{
-lista.innerHTML += `
-<div class="member">
-<div class="member-top">
-<strong>${p.nombre}</strong>
-<span class="badge">
-${p.estado}
-</span>
-</div>
-<div class="member-info">
-💰 $${p.monto}<br>
-📅 ${p.fecha}
-</div>
-</div>
-`;
-});
-}
-function editarWod(){
-alert(
-"Próximamente podremos crear y editar WODs desde WODLY."
-);
-}
-function actualizar(){
-document
-.getElementById("totalSocios")
-.textContent=socios.length;
-document
-.getElementById("estadisticaSocios")
-.textContent=socios.length;
-document
-.getElementById("estadisticaActivos")
-.textContent=
-socios.filter(s=>s.estado==="Activo").length;
-document
-.getElementById("estadisticaInactivos")
-.textContent=
-socios.filter(s=>s.estado==="Inactivo").length;
-document
-.getElementById("pagosPendientes")
-.textContent=
-pagos.filter(p=>p.estado==="Pendiente").length;
-mostrarSocios();
-mostrarPagos();
-}
-actualizar();
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://euujfhmvywhfjeguwtfp.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_056Oipb341JdaNsugdyWPw_49m2RUYy";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
-console.log("WODLY conectado a Supabase");
-</script>
-  <style>
-#wodly-login {
-  position: fixed;
-  inset: 0;
-  background: #0b0b0f;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.wodly-login-box {
-  width: 100%;
-  max-width: 400px;
-  background: #15151c;
-  border-radius: 20px;
-  padding: 30px 22px;
-  text-align: center;
-}
-
-.wodly-login-box h1 {
-  font-size: 38px;
-  margin: 0 0 5px;
-}
-
-.wodly-login-box p {
-  color: #999;
-  margin-bottom: 25px;
-}
-
-.wodly-login-box input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 1px solid #333;
-  background: #0d0d12;
-  color: white;
-  font-size: 16px;
-}
-
-.wodly-login-box button {
-  width: 100%;
-  padding: 15px;
-  border: 0;
-  border-radius: 12px;
-  background: white;
-  color: black;
-  font-weight: bold;
-  font-size: 16px;
-  margin-top: 5px;
-}
-
-#wodly-login-message {
-  margin-top: 15px;
-  color: #aaa;
-}
-</style>
-
-<div id="wodly-login">
-  <div class="wodly-login-box">
-    <h1>WODLY</h1>
-    <p>Gestión inteligente para tu Box</p>
-
-    <input
-      id="wodly-email"
-      type="email"
-      placeholder="Email"
-      autocomplete="email"
-    >
-
-    <input
-      id="wodly-password"
-      type="password"
-      placeholder="Contraseña"
-      autocomplete="current-password"
-    >
-
-    <button onclick="wodlyLogin()">INGRESAR</button>
-
-    <div id="wodly-login-message"></div>
+    <div id="loginMessage" class="message"></div>
   </div>
+</section>
+
+
+<!-- APP -->
+<section id="appScreen" class="hidden app">
+
+<header>
+  <div>
+    <div class="logo">WOD<span>LY</span></div>
+    <div id="boxNameHeader" class="box-name">Cargando...</div>
+  </div>
+
+  <button class="logout" onclick="logout()">Salir</button>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showSection('dashboard',this)">Inicio</button>
+  <button class="nav-btn" onclick="showSection('members',this)">Socios</button>
+  <button class="nav-btn" onclick="showSection('payments',this)">Pagos</button>
+  <button class="nav-btn" onclick="showSection('classes',this)">Clases</button>
+  <button class="nav-btn" onclick="showSection('wod',this)">WOD</button>
+  <button class="nav-btn" onclick="showSection('config',this)">Config.</button>
+</nav>
+
+<main>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+
+  <h2>Dashboard</h2>
+
+  <div class="grid">
+
+    <div class="stat">
+      <div class="stat-label">SOCIOS</div>
+      <div id="totalMembers" class="stat-number">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">ACTIVOS</div>
+      <div id="activeMembers" class="stat-number">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">PAGOS PENDIENTES</div>
+      <div id="pendingPayments" class="stat-number">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">CLASES</div>
+      <div id="totalClasses" class="stat-number">0</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:15px">
+    <h3>WOD de hoy</h3>
+    <div id="dashboardWod" class="muted">Cargando...</div>
+  </div>
+
+</section>
+
+
+<!-- SOCIOS -->
+<section id="members" class="section hidden">
+
+  <h2>Socios</h2>
+
+  <div class="card">
+
+    <h3>Nuevo socio</h3>
+
+    <label>Nombre</label>
+    <input id="memberFirstName" placeholder="Nombre">
+
+    <label>Apellido</label>
+    <input id="memberLastName" placeholder="Apellido">
+
+    <label>Email</label>
+    <input id="memberEmail" type="email" placeholder="socio@email.com">
+
+    <label>Teléfono</label>
+    <input id="memberPhone" placeholder="351...">
+
+    <label>Grupo</label>
+    <input id="memberGroup" placeholder="Ej: Adultos">
+
+    <button class="btn btn-primary" onclick="addMember()">AGREGAR SOCIO</button>
+
+    <div id="memberMessage" class="message"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Buscar socio</h3>
+
+    <input id="memberSearch" placeholder="Nombre, apellido o email..." oninput="renderMembers()">
+
+    <div id="membersList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- PAGOS -->
+<section id="payments" class="section hidden">
+
+  <h2>Pagos</h2>
+
+  <div class="card">
+
+    <h3>Registrar pago</h3>
+
+    <label>Socio</label>
+    <select id="paymentMember"></select>
+
+    <label>Monto</label>
+    <input id="paymentAmount" type="number" placeholder="30000">
+
+    <label>Fecha de vencimiento</label>
+    <input id="paymentDueDate" type="date">
+
+    <label>Notas</label>
+    <textarea id="paymentNotes" placeholder="Observaciones..."></textarea>
+
+    <button class="btn btn-primary" onclick="addPayment()">REGISTRAR PAGO</button>
+
+    <div id="paymentMessage" class="message"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Últimos pagos</h3>
+
+    <div id="paymentsList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CLASES -->
+<section id="classes" class="section hidden">
+
+  <h2>Clases</h2>
+
+  <div class="card">
+
+    <h3>Nueva clase</h3>
+
+    <label>Día</label>
+    <select id="classWeekday">
+      <option value="1">Lunes</option>
+      <option value="2">Martes</option>
+      <option value="3">Miércoles</option>
+      <option value="4">Jueves</option>
+      <option value="5">Viernes</option>
+      <option value="6">Sábado</option>
+      <option value="0">Domingo</option>
+    </select>
+
+    <label>Hora</label>
+
+    <!-- IMPORTANTE: text en lugar de type=time para evitar el problema del iPhone -->
+    <input
+      id="classTime"
+      type="text"
+      inputmode="numeric"
+      maxlength="5"
+      placeholder="18:00"
+      value="18:00"
+      oninput="formatTime(this)"
+    >
+
+    <div class="muted" style="margin-top:6px">
+      Escribí la hora en formato 24 hs. Ejemplo: 18:00
+    </div>
+
+    <label>Capacidad</label>
+    <input id="classCapacity" type="number" value="15">
+
+    <label>Grupo</label>
+    <input id="classGroup" placeholder="Ej: Adultos">
+
+    <button class="btn btn-primary" onclick="addClass()">CREAR CLASE</button>
+
+    <div id="classMessage" class="message"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Clases programadas</h3>
+
+    <div id="classesList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- WOD -->
+<section id="wod" class="section hidden">
+
+  <h2>WOD</h2>
+
+  <div class="card">
+
+    <h3>Crear WOD de hoy</h3>
+
+    <label>Título</label>
+    <input id="wodTitle" placeholder="Ej: Fran">
+
+    <label>Descripción</label>
+    <textarea id="wodDescription" placeholder="21-15-9&#10;Thrusters&#10;Pull Ups"></textarea>
+
+    <button class="btn btn-primary" onclick="saveWod()">PUBLICAR WOD</button>
+
+    <div id="wodMessage" class="message"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>WOD de hoy</h3>
+
+    <div id="todayWod"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CONFIG -->
+<section id="config" class="section hidden">
+
+  <h2>Configuración</h2>
+
+  <div class="card">
+
+    <h3>Datos del box</h3>
+
+    <label>Nombre</label>
+    <input id="configName">
+
+    <label>Ciudad</label>
+    <input id="configCity">
+
+    <label>Dirección</label>
+    <input id="configAddress">
+
+    <label>Teléfono</label>
+    <input id="configPhone">
+
+    <button class="btn btn-primary" onclick="saveConfig()">GUARDAR CAMBIOS</button>
+
+    <div id="configMessage" class="message"></div>
+
+  </div>
+
+</section>
+
+</main>
+
+<div class="footer">
+  WODLY · Gestión para boxes de CrossFit
 </div>
 
-<script>
-async function wodlyLogin() {
-  const email = document.getElementById("wodly-email").value.trim();
-  const password = document.getElementById("wodly-password").value;
-  const message = document.getElementById("wodly-login-message");
+</section>
 
-  if (!email || !password) {
-    message.textContent = "Ingresá tu email y contraseña.";
+
+<script>
+
+const SUPABASE_URL = "https://euujfhmvywhfjeguwtfp.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_056Oipb341JdaNsugdyWPw_49m2RUYy";
+
+const supabaseClient =
+  window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+let currentUser = null;
+let currentBox = null;
+let currentMembership = null;
+let members = [];
+let payments = [];
+let classes = [];
+
+
+/* =========================
+   UTILIDADES
+========================= */
+
+function escapeHtml(value){
+  if(value === null || value === undefined) return "";
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function showMessage(id,text,type="ok"){
+  const el = document.getElementById(id);
+
+  if(!el) return;
+
+  el.textContent = text;
+  el.className = "message " + type;
+
+  setTimeout(()=>{
+    el.className = "message";
+  },4000);
+}
+
+
+function today(){
+  return new Date().toISOString().split("T")[0];
+}
+
+
+function formatDate(date){
+  if(!date) return "-";
+
+  const d = new Date(date + "T00:00:00");
+
+  return d.toLocaleDateString("es-AR");
+}
+
+
+function formatMoney(value){
+  return Number(value || 0).toLocaleString("es-AR",{
+    style:"currency",
+    currency:"ARS",
+    maximumFractionDigits:0
+  });
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+    showMessage(
+      "loginMessage",
+      "Completá email y contraseña",
+      "error"
+    );
     return;
   }
 
-  message.textContent = "Ingresando...";
-
-  const { data, error } =
+  const {error} =
     await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
+      email,
+      password
     });
 
-  if (error) {
-    message.textContent = "Error: " + error.message;
+  if(error){
+
+    showMessage(
+      "loginMessage",
+      error.message,
+      "error"
+    );
+
     return;
   }
 
-  message.textContent = "¡Bienvenido a WODLY!";
-
-  document.getElementById("wodly-login").style.display = "none";
+  await initializeApp();
 }
+
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  currentUser = null;
+  currentBox = null;
+  currentMembership = null;
+
+  document
+    .getElementById("appScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+}
+
+
+/* =========================
+   INICIALIZAR
+========================= */
+
+async function initializeApp(){
+
+  const {
+    data:{user}
+  } = await supabaseClient.auth.getUser();
+
+  if(!user){
+    return;
+  }
+
+  currentUser = user;
+
+  const {data:membership,error:membershipError} =
+    await supabaseClient
+      .from("box_members")
+      .select("*")
+      .eq("user_id",user.id)
+      .eq("status","active")
+      .limit(1)
+      .maybeSingle();
+
+  if(membershipError || !membership){
+
+    alert(
+      "Tu usuario no tiene un box activo asociado."
+    );
+
+    await logout();
+
+    return;
+  }
+
+  currentMembership = membership;
+
+  const {data:box,error:boxError} =
+    await supabaseClient
+      .from("boxes")
+      .select("*")
+      .eq("id",membership.box_id)
+      .single();
+
+  if(boxError || !box){
+
+    alert("No se pudo cargar el box.");
+
+    await logout();
+
+    return;
+  }
+
+  currentBox = box;
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("appScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("boxNameHeader")
+    .textContent = box.name || "WODLY";
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   CARGAR TODO
+========================= */
+
+async function loadAll(){
+
+  await Promise.all([
+    loadMembers(),
+    loadPayments(),
+    loadClasses(),
+    loadTodayWod(),
+    loadConfig()
+  ]);
+
+  updateDashboard();
+
+}
+
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+function showSection(section,button){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(el=>{
+      el.classList.add("hidden");
+    });
+
+  const target =
+    document.getElementById(section);
+
+  if(target){
+    target.classList.remove("hidden");
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  if(section === "dashboard"){
+    updateDashboard();
+  }
+
+  if(section === "wod"){
+    loadTodayWod();
+  }
+
+  if(section === "payments"){
+    loadPayments();
+  }
+
+  if(section === "classes"){
+    loadClasses();
+  }
+}
+
+
+/* =========================
+   SOCIOS
+========================= */
+
+async function loadMembers(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("box_members")
+      .select(`
+        id,
+        user_id,
+        role,
+        status,
+        group_name,
+        created_at,
+        profiles (
+          first_name,
+          last_name,
+          phone
+        )
+      `)
+      .eq("box_id",currentBox.id)
+      .in("role",["athlete","coach"])
+      .order("created_at",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+
+    members=[];
+
+    renderMembers();
+
+    return;
+  }
+
+  members = data || [];
+
+  renderMembers();
+
+  populatePaymentMembers();
+}
+
+
+function renderMembers(){
+
+  const container =
+    document.getElementById("membersList");
+
+  if(!container) return;
+
+  const search =
+    (document.getElementById("memberSearch")?.value || "")
+      .toLowerCase()
+      .trim();
+
+  const filtered =
+    members.filter(member=>{
+
+      const p = member.profiles || {};
+
+      const text = [
+        p.first_name,
+        p.last_name,
+        p.phone,
+        member.group_name
+      ].join(" ").toLowerCase();
+
+      return text.includes(search);
+    });
+
+  if(!filtered.length){
+
+    container.innerHTML =
+      '<div class="empty">No hay socios para mostrar.</div>';
+
+    return;
+  }
+
+  container.innerHTML =
+    filtered.map(member=>{
+
+      const p = member.profiles || {};
+
+      const name =
+        `${p.first_name || ""} ${p.last_name || ""}`.trim()
+        || "Sin nombre";
+
+      const active =
+        member.status === "active";
+
+      return `
+        <div class="list-item">
+
+          <div class="row">
+
+            <div>
+              <strong>${escapeHtml(name)}</strong>
+
+              <div class="muted">
+                ${escapeHtml(member.group_name || "Sin grupo")}
+              </div>
+
+              <div class="muted">
+                ${escapeHtml(p.phone || "")}
+              </div>
+            </div>
+
+            <span class="badge ${active ? "badge-green":"badge-red"}">
+              ${active ? "ACTIVO":"SUSPENDIDO"}
+            </span>
+
+          </div>
+
+          <button
+            class="small-btn"
+            style="margin-top:10px"
+            onclick="toggleMember('${member.id}','${active ? "suspended":"active"}')"
+          >
+            ${active ? "Suspender":"Activar"}
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+async function addMember(){
+
+  const first_name =
+    document.getElementById("memberFirstName").value.trim();
+
+  const last_name =
+    document.getElementById("memberLastName").value.trim();
+
+  const email =
+    document.getElementById("memberEmail").value.trim();
+
+  const phone =
+    document.getElementById("memberPhone").value.trim();
+
+  const group_name =
+    document.getElementById("memberGroup").value.trim();
+
+  if(!first_name || !email){
+
+    showMessage(
+      "memberMessage",
+      "Nombre y email son obligatorios.",
+      "error"
+    );
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } = await supabaseClient.functions.invoke(
+    "create-member",
+    {
+      body:{
+        box_id:currentBox.id,
+        email,
+        first_name,
+        last_name,
+        phone,
+        group_name
+      }
+    }
+  );
+
+  if(error){
+
+    showMessage(
+      "memberMessage",
+      error.message || "No se pudo crear el socio.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(data && data.ok === false){
+
+    showMessage(
+      "memberMessage",
+      data.message || "No se pudo crear el socio.",
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "memberMessage",
+    "Socio creado correctamente.",
+    "ok"
+  );
+
+  document.getElementById("memberFirstName").value="";
+  document.getElementById("memberLastName").value="";
+  document.getElementById("memberEmail").value="";
+  document.getElementById("memberPhone").value="";
+  document.getElementById("memberGroup").value="";
+
+  await loadMembers();
+
+  updateDashboard();
+}
+
+
+async function toggleMember(id,status){
+
+  const {error} =
+    await supabaseClient
+      .from("box_members")
+      .update({status})
+      .eq("id",id)
+      .eq("box_id",currentBox.id);
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  await loadMembers();
+
+  updateDashboard();
+}
+
+
+/* =========================
+   PAGOS
+========================= */
+
+function populatePaymentMembers(){
+
+  const select =
+    document.getElementById("paymentMember");
+
+  if(!select) return;
+
+  const active =
+    members.filter(m=>m.status==="active");
+
+  if(!active.length){
+
+    select.innerHTML =
+      '<option value="">No hay socios activos</option>';
+
+    return;
+  }
+
+  select.innerHTML =
+    '<option value="">Seleccionar socio...</option>' +
+
+    active.map(member=>{
+
+      const p = member.profiles || {};
+
+      const name =
+        `${p.first_name || ""} ${p.last_name || ""}`.trim();
+
+      return `
+        <option value="${member.id}">
+          ${escapeHtml(name || "Sin nombre")}
+        </option>
+      `;
+
+    }).join("");
+}
+
+
+async function addPayment(){
+
+  const member_id =
+    document.getElementById("paymentMember").value;
+
+  const amount =
+    document.getElementById("paymentAmount").value;
+
+  const due_date =
+    document.getElementById("paymentDueDate").value || null;
+
+  const notes =
+    document.getElementById("paymentNotes").value.trim();
+
+  if(!member_id || !amount){
+
+    showMessage(
+      "paymentMessage",
+      "Seleccioná un socio e ingresá el monto.",
+      "error"
+    );
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("payments")
+      .insert({
+        box_id:currentBox.id,
+        member_id,
+        amount:Number(amount),
+        paid_at:today(),
+        due_date,
+        status:"paid",
+        notes
+      });
+
+  if(error){
+
+    showMessage(
+      "paymentMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "paymentMessage",
+    "Pago registrado correctamente.",
+    "ok"
+  );
+
+  document.getElementById("paymentAmount").value="";
+  document.getElementById("paymentDueDate").value="";
+  document.getElementById("paymentNotes").value="";
+
+  await loadPayments();
+
+  updateDashboard();
+}
+
+
+async function loadPayments(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("payments")
+      .select(`
+        id,
+        member_id,
+        amount,
+        paid_at,
+        due_date,
+        status,
+        notes,
+        box_members (
+          profiles (
+            first_name,
+            last_name
+          )
+        )
+      `)
+      .eq("box_id",currentBox.id)
+      .order("created_at",{ascending:false})
+      .limit(30);
+
+  if(error){
+
+    console.error(error);
+
+    payments=[];
+
+    renderPayments();
+
+    return;
+  }
+
+  payments=data || [];
+
+  renderPayments();
+}
+
+
+function renderPayments(){
+
+  const container =
+    document.getElementById("paymentsList");
+
+  if(!container) return;
+
+  if(!payments.length){
+
+    container.innerHTML =
+      '<div class="empty">Todavía no hay pagos registrados.</div>';
+
+    return;
+  }
+
+  container.innerHTML =
+    payments.map(payment=>{
+
+      const p =
+        payment.box_members?.profiles || {};
+
+      const name =
+        `${p.first_name || ""} ${p.last_name || ""}`.trim()
+        || "Socio";
+
+      return `
+        <div class="list-item">
+
+          <div class="row">
+
+            <div>
+              <strong>${escapeHtml(name)}</strong>
+
+              <div class="muted">
+                Pago: ${formatDate(payment.paid_at)}
+              </div>
+
+              ${
+                payment.due_date
+                ?
+                `<div class="muted">
+                  Vencimiento: ${formatDate(payment.due_date)}
+                </div>`
+                :
+                ""
+              }
+
+            </div>
+
+            <strong>
+              ${formatMoney(payment.amount)}
+            </strong>
+
+          </div>
+
+          ${
+            payment.notes
+            ?
+            `<div class="muted" style="margin-top:8px">
+              ${escapeHtml(payment.notes)}
+            </div>`
+            :
+            ""
+          }
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================
+   CLASES
+========================= */
+
+function formatTime(input){
+
+  let value =
+    input.value.replace(/[^0-9]/g,"");
+
+  if(value.length > 4){
+    value=value.slice(0,4);
+  }
+
+  if(value.length >= 3){
+
+    value =
+      value.slice(0,2) + ":" + value.slice(2);
+  }
+
+  input.value=value;
+}
+
+
+function validateTime(value){
+
+  return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value);
+}
+
+
+async function addClass(){
+
+  const weekday =
+    Number(document.getElementById("classWeekday").value);
+
+  const start_time =
+    document.getElementById("classTime").value.trim();
+
+  const capacity =
+    Number(document.getElementById("classCapacity").value || 15);
+
+  const group_name =
+    document.getElementById("classGroup").value.trim();
+
+  if(!validateTime(start_time)){
+
+    showMessage(
+      "classMessage",
+      "La hora debe tener formato HH:MM. Ejemplo: 18:00",
+      "error"
+    );
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("classes")
+      .insert({
+        box_id:currentBox.id,
+        weekday,
+        start_time,
+        capacity,
+        group_name
+      });
+
+  if(error){
+
+    showMessage(
+      "classMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "classMessage",
+    "Clase creada correctamente.",
+    "ok"
+  );
+
+  document.getElementById("classTime").value="18:00";
+  document.getElementById("classCapacity").value="15";
+  document.getElementById("classGroup").value="";
+
+  await loadClasses();
+
+  updateDashboard();
+}
+
+
+async function loadClasses(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("classes")
+      .select("*")
+      .eq("box_id",currentBox.id)
+      .order("weekday",{ascending:true})
+      .order("start_time",{ascending:true});
+
+  if(error){
+
+    console.error(error);
+
+    classes=[];
+
+    renderClasses();
+
+    return;
+  }
+
+  classes=data || [];
+
+  renderClasses();
+}
+
+
+function weekdayName(day){
+
+  const names = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ];
+
+  return names[Number(day)] || "-";
+}
+
+
+function cleanTime(time){
+
+  if(!time) return "";
+
+  return String(time).slice(0,5);
+}
+
+
+function renderClasses(){
+
+  const container =
+    document.getElementById("classesList");
+
+  if(!container) return;
+
+  if(!classes.length){
+
+    container.innerHTML =
+      '<div class="empty">No hay clases programadas.</div>';
+
+    return;
+  }
+
+  container.innerHTML =
+    classes.map(c=>{
+
+      return `
+        <div class="list-item">
+
+          <div class="row">
+
+            <div>
+              <div class="class-time">
+                ${escapeHtml(cleanTime(c.start_time))}
+              </div>
+
+              <strong>
+                ${escapeHtml(weekdayName(c.weekday))}
+              </strong>
+
+              <div class="muted">
+                ${escapeHtml(c.group_name || "General")}
+                · Capacidad ${c.capacity || 15}
+              </div>
+            </div>
+
+            <button
+              class="small-btn"
+              onclick="deleteClass('${c.id}')"
+            >
+              Eliminar
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+async function deleteClass(id){
+
+  if(!confirm("¿Eliminar esta clase?")){
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("classes")
+      .delete()
+      .eq("id",id)
+      .eq("box_id",currentBox.id);
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  await loadClasses();
+
+  updateDashboard();
+}
+
+
+/* =========================
+   WOD
+========================= */
+
+async function saveWod(){
+
+  const title =
+    document.getElementById("wodTitle").value.trim();
+
+  const description =
+    document.getElementById("wodDescription").value.trim();
+
+  if(!title){
+
+    showMessage(
+      "wodMessage",
+      "Ingresá un título para el WOD.",
+      "error"
+    );
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("workouts")
+      .insert({
+        box_id:currentBox.id,
+        workout_date:today(),
+        title,
+        description,
+        created_by:currentUser.id,
+        status:"published"
+      });
+
+  if(error){
+
+    showMessage(
+      "wodMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "wodMessage",
+    "WOD publicado correctamente.",
+    "ok"
+  );
+
+  document.getElementById("wodTitle").value="";
+  document.getElementById("wodDescription").value="";
+
+  await loadTodayWod();
+}
+
+
+async function loadTodayWod(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("workouts")
+      .select("*")
+      .eq("box_id",currentBox.id)
+      .eq("workout_date",today())
+      .eq("status","published")
+      .order("created_at",{ascending:false})
+      .limit(1)
+      .maybeSingle();
+
+  if(error){
+
+    console.error(error);
+
+    return;
+  }
+
+  const html =
+    data
+    ?
+    `
+      <div class="wod-box">
+        <div class="wod-title">
+          ${escapeHtml(data.title)}
+        </div>
+
+        <div class="wod-description">
+          ${escapeHtml(data.description || "")}
+        </div>
+      </div>
+    `
+    :
+    '<div class="empty">Todavía no hay WOD publicado para hoy.</div>';
+
+  const todayContainer =
+    document.getElementById("todayWod");
+
+  const dashboardContainer =
+    document.getElementById("dashboardWod");
+
+  if(todayContainer){
+    todayContainer.innerHTML=html;
+  }
+
+  if(dashboardContainer){
+
+    dashboardContainer.innerHTML =
+      data
+      ?
+      `
+        <strong>${escapeHtml(data.title)}</strong>
+        <div class="muted" style="margin-top:6px">
+          ${escapeHtml(data.description || "")}
+        </div>
+      `
+      :
+      '<span class="muted">No hay WOD publicado.</span>';
+  }
+}
+
+
+/* =========================
+   CONFIGURACIÓN
+========================= */
+
+async function loadConfig(){
+
+  if(!currentBox) return;
+
+  document.getElementById("configName").value =
+    currentBox.name || "";
+
+  document.getElementById("configCity").value =
+    currentBox.city || "";
+
+  document.getElementById("configAddress").value =
+    currentBox.address || "";
+
+  document.getElementById("configPhone").value =
+    currentBox.phone || "";
+}
+
+
+async function saveConfig(){
+
+  const name =
+    document.getElementById("configName").value.trim();
+
+  const city =
+    document.getElementById("configCity").value.trim();
+
+  const address =
+    document.getElementById("configAddress").value.trim();
+
+  const phone =
+    document.getElementById("configPhone").value.trim();
+
+  if(!name){
+
+    showMessage(
+      "configMessage",
+      "El nombre del box es obligatorio.",
+      "error"
+    );
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+      .from("boxes")
+      .update({
+        name,
+        city,
+        address,
+        phone
+      })
+      .eq("id",currentBox.id);
+
+  if(error){
+
+    showMessage(
+      "configMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+  currentBox.name=name;
+  currentBox.city=city;
+  currentBox.address=address;
+  currentBox.phone=phone;
+
+  document.getElementById("boxNameHeader").textContent=name;
+
+  showMessage(
+    "configMessage",
+    "Configuración guardada.",
+    "ok"
+  );
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function updateDashboard(){
+
+  const total =
+    members.length;
+
+  const active =
+    members.filter(m=>m.status==="active").length;
+
+  document.getElementById("totalMembers").textContent =
+    total;
+
+  document.getElementById("activeMembers").textContent =
+    active;
+
+  document.getElementById("totalClasses").textContent =
+    classes.length;
+
+  /* pagos pendientes */
+  const currentDate=today();
+
+  const pending =
+    payments.filter(p=>
+      p.due_date &&
+      p.due_date < currentDate &&
+      p.status !== "paid"
+    ).length;
+
+  document.getElementById("pendingPayments").textContent =
+    pending;
+}
+
+
+/* =========================
+   SESIÓN AUTOMÁTICA
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event,session)=>{
+
+    if(session && !currentUser){
+
+      setTimeout(()=>{
+        initializeApp();
+      },0);
+
+    }
+
+  }
+);
+
+
+(async function(){
+
+  const {
+    data:{session}
+  } = await supabaseClient.auth.getSession();
+
+  if(session){
+
+    await initializeApp();
+
+  }
+
+})();
+
 </script>
+
 </body>
 </html>
